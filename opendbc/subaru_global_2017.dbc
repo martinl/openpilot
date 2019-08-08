@@ -355,7 +355,8 @@ BO_ 1787 NEW_MSG_45: 8 XXX
  SG_ NEW_SIGNAL_2 : 8|8@1+ (1,0) [0|255] "" XXX
  SG_ NEW_SIGNAL_3 : 16|8@1+ (1,0) [0|255] "" XXX
 
-
+BO_ 256 OP_ACTIVE: 8 XXX
+ SG_ ACTIVE : 0|4@1+ (1,0) [0|1] "" XXX
 
 
 CM_ SG_ 940 FOG_LIGHTS2 "yellow fog light in the dash";
