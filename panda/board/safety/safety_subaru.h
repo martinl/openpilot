@@ -13,6 +13,7 @@ int subaru_rt_torque_last = 0;
 int subaru_desired_torque_last = 0;
 uint32_t subaru_ts_last = 0;
 struct sample_t subaru_torque_driver;         // last few driver torques measured
+int subaru_op_active = 0;
 
 
 static void subaru_rx_hook(CAN_FIFOMailBox_TypeDef *to_push) {
@@ -42,6 +43,11 @@ static void subaru_rx_hook(CAN_FIFOMailBox_TypeDef *to_push) {
 static int subaru_tx_hook(CAN_FIFOMailBox_TypeDef *to_send) {
   int tx = 1;
   int addr = GET_ADDR(to_send);
+
+  // subaru_op_active presence check
+  if (addr == 0x100) {
+    subaru_op_active = 1;
+  }
 
   // steer cmd checks
   if (addr == 0x122) {
@@ -103,13 +109,20 @@ static int subaru_fwd_hook(int bus_num, CAN_FIFOMailBox_TypeDef *to_fwd) {
   }
   if (bus_num == 2) {
     // 356 is LKAS for outback 2015
-    // 356 is LKAS for Global Platform
+    // 290 is LKAS for Global Platform
     // 545 is ES_Distance
     // 802 is ES_LKAS
-    int addr = GET_ADDR(to_fwd);
-    int block_msg = (addr == 290) || (addr == 356) || (addr == 545) || (addr == 802);
-    if (!block_msg) {
-      bus_fwd = 0;  // Main CAN
+
+    // filter only when subaru_op_active is set
+    if (subaru_op_active) {
+      int addr = GET_ADDR(to_fwd);
+      int block_msg = (addr == 290) || (addr == 356) || (addr == 545) || (addr == 802);
+
+      if (!block_msg) {
+        bus_fwd = 0;  // Main CAN
+      }
+    else {
+      bus_fwd = 0; // Main CAN
     }
   }
 

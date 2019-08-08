@@ -55,3 +55,9 @@ def create_es_lkas(packer, es_lkas_msg, visual_alert, left_line, right_line):
   values["Checksum"] = subaru_checksum(packer, values, 802)
 
   return packer.make_can_msg("ES_LKAS_State", 0, values)
+
+def create_openpilot_active(packer):
+  values = {
+    "ACTIVE": 1
+  }
+  return packer.make_can_msg("OP_ACTIVE", 0, values)

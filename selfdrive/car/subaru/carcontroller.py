@@ -62,6 +62,10 @@ class CarController(object):
 
       self.apply_steer_last = apply_steer
 
+    # generate 1Hz op_active msg for global to enable panda es filtering
+    if (frame % 100) == 0:
+      can_sends.append(subarucan.create_openpilot_active(self.packer))
+
     if self.es_distance_cnt != CS.es_distance_msg["Counter"]:
       can_sends.append(subarucan.create_es_distance(self.packer, CS.es_distance_msg, pcm_cancel_cmd))
       self.es_distance_cnt = CS.es_distance_msg["Counter"]
