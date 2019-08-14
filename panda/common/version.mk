@@ -15,6 +15,6 @@ obj/gitversion.h: $(SELF_DIR)/../VERSION $(SELF_DIR)/../../.git/modules/panda/HE
 	echo "const uint8_t gitversion[] = \"$(shell cat $(SELF_DIR)/../VERSION)-$(BUILDER)-$(shell git rev-parse --short=8 HEAD)-$(BUILD_TYPE)\";" > $@
 else
 obj/gitversion.h: $(SELF_DIR)/../VERSION
-	echo "const uint8_t gitversion[] = \"$(shell cat $(SELF_DIR)/../VERSION)-$(BUILDER)-unknown-$(BUILD_TYPE)\";" > $@
+	echo "const uint8_t gitversion[] = \"$(shell cat $(SELF_DIR)/../VERSION)-$(BUILDER)-subaru-diy-$(BUILD_TYPE)\";" > $@
 endif
 endif
