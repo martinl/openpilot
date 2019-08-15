@@ -180,7 +180,6 @@ void *safety_setter_thread(void *s) {
 bool usb_connect() {
   int err;
   unsigned char hw_query[1] = {0};
-  unsigned char is_pigeon[1] = {0};
   unsigned char fw_ver_buf[64];
   unsigned char serial_buf[16];
   const char *fw_ver;
