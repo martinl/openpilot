@@ -24,7 +24,7 @@ def create_es_distance(packer, es_distance_msg, pcm_cancel_cmd):
 
   values = copy.copy(es_distance_msg)
   if pcm_cancel_cmd:
-    values["Main"] = 1
+    values["Cruise_Cancel"] = 1
 
   return packer.make_can_msg("ES_Distance", 0, values)
 
@@ -38,3 +38,12 @@ def create_es_lkas(packer, es_lkas_msg, visual_alert, left_line, right_line):
   values["LKAS_Right_Line_Visible"] = int(right_line)
 
   return packer.make_can_msg("ES_LKAS_State", 0, values)
+
+def create_es_brake(packer, es_brake_msg, brake_cmd, brake_value):
+
+  values = copy.copy(es_brake_msg)
+  if brake_cmd:
+    values["Brake_Pressure"] = brake_value
+    values["State"] = 8
+
+  return packer.make_can_msg("ES_Brake", 0, values)

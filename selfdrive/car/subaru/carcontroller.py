@@ -22,6 +22,7 @@ class CarController():
     self.lkas_active = False
     self.apply_steer_last = 0
     self.es_distance_cnt = -1
+    self.es_brake_cnt = -1
     self.es_lkas_cnt = -1
     self.steer_rate_limited = False
 
@@ -60,6 +61,16 @@ class CarController():
 
       self.apply_steer_last = apply_steer
 
+    ### LONG ###
+
+    if (frame % 5):
+      print('actuators.gas: %s throttle_cruise: %s es_cruise_throttle: %s' % (actuators.gas, CS.throttle_cruise, CS.es_cruise_throttle))
+
+      print('actuators.brake: %s, es_brake_pressure: %s es_brake_state: %s es_status_brake: %s' % (actuators.brake, CS.es_brake_pressure, CS.es_brake_state, CS.es_status_brake))
+
+    brake_cmd = False
+    brake_value = 0
+
     if self.es_distance_cnt != CS.es_distance_msg["Counter"]:
       can_sends.append(subarucan.create_es_distance(self.packer, CS.es_distance_msg, pcm_cancel_cmd))
       self.es_distance_cnt = CS.es_distance_msg["Counter"]
@@ -67,5 +78,10 @@ class CarController():
     if self.es_lkas_cnt != CS.es_lkas_msg["Counter"]:
       can_sends.append(subarucan.create_es_lkas(self.packer, CS.es_lkas_msg, visual_alert, left_line, right_line))
       self.es_lkas_cnt = CS.es_lkas_msg["Counter"]
+
+    if self.es_brake_cnt != CS.es_brake_msg["Counter"]:
+      can_sends.append(subarucan.create_es_brake(self.packer, CS.es_brake_msg, brake_cmd, brake_value))
+      self.es_brake_cnt = CS.es_brake_msg["Counter"]
+
 
     return can_sends

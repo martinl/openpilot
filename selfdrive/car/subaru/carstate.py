@@ -58,8 +58,16 @@ class CarState(CarStateBase):
       cp.vl["BodyInfo"]['DOOR_OPEN_FR'],
       cp.vl["BodyInfo"]['DOOR_OPEN_FL']])
 
+    self.throttle_cruise = cp.vl["Throttle"]['Throttle_Cruise']
+    self.es_cruise_throttle = cp_cam.vl["ES_Distance"]['ES_Cruise_Throttle']
+
+    self.es_brake_pressure = cp_cam.vl["ES_Brake"]['Brake_Pressure']
+    self.es_brake_state = cp_cam.vl["ES_Brake"]['State']
+    self.es_status_brake = cp_cam.vl["ES_Status"]['Cruise_Brake']
+
     self.es_distance_msg = copy.copy(cp_cam.vl["ES_Distance"])
     self.es_lkas_msg = copy.copy(cp_cam.vl["ES_LKAS_State"])
+    self.es_brake_msg = copy.copy(cp_cam.vl["ES_Brake"])
 
     return ret
 
@@ -74,6 +82,7 @@ class CarState(CarStateBase):
       ("Cruise_Activated", "CruiseControl", 0),
       ("Brake_Pedal", "Brake_Pedal", 0),
       ("Throttle_Pedal", "Throttle", 0),
+      ("Throttle_Cruise", "Throttle", 0),
       ("LEFT_BLINKER", "Dashlights", 0),
       ("RIGHT_BLINKER", "Dashlights", 0),
       ("SEATBELT_FL", "Dashlights", 0),
@@ -105,11 +114,27 @@ class CarState(CarStateBase):
     signals = [
       ("Cruise_Set_Speed", "ES_DashStatus", 0),
 
+      ("Cruise_Brake", "ES_Status", 0),
+
       ("Counter", "ES_Distance", 0),
+      ("ES_Cruise_Throttle", "ES_Distance", 0),
+      ("Car_Follow", "ES_Distance", 0),
       ("Signal1", "ES_Distance", 0),
+      ("Distance_Swap", "ES_Distance", 0),
       ("Signal2", "ES_Distance", 0),
-      ("Main", "ES_Distance", 0),
+      ("Close_Distance", "ES_Distance", 0),
       ("Signal3", "ES_Distance", 0),
+      ("Cruise_Cancel", "ES_Distance", 0),
+      ("Cruise_Set", "ES_Distance", 0),
+      ("Cruise_Resume", "ES_Distance", 0),
+      ("Signal4", "ES_Distance", 0),
+
+      ("Counter", "ES_Brake", 0),
+      ("Signal1", "ES_Brake", 0),
+      ("Brake_Pressure", "ES_Brake", 0),
+      ("Signal2", "ES_Brake", 0),
+      ("State", "ES_Brake", 0),
+      ("Signal3", "ES_Brake", 0),
 
       ("Counter", "ES_LKAS_State", 0),
       ("Keep_Hands_On_Wheel", "ES_LKAS_State", 0),
@@ -137,6 +162,9 @@ class CarState(CarStateBase):
 
     checks = [
       ("ES_DashStatus", 10),
+      ("ES_Distance", 20),
+      ("ES_Brake", 20),
+      ("ES_LKAS_State", 10),
     ]
 
     return CANParser(DBC[CP.carFingerprint]['pt'], signals, checks, 2)
