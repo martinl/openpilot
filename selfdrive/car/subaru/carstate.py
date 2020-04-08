@@ -59,7 +59,7 @@ class CarState(CarStateBase):
       cp.vl["BodyInfo"]['DOOR_OPEN_FL']])
 
     self.throttle_cruise = cp.vl["Throttle"]['Throttle_Cruise']
-    self.es_cruise_throttle = cp_cam.vl["ES_Distance"]['ES_Cruise_Throttle']
+    self.es_cruise_throttle = cp_cam.vl["ES_Distance"]['Throttle_Cruise']
 
     self.es_brake_pressure = cp_cam.vl["ES_Brake"]['Brake_Pressure']
     self.es_brake_state = cp_cam.vl["ES_Brake"]['State']
