@@ -64,8 +64,8 @@ class CarController():
 
     ### LONG ###
 
-    accel_cmd = False
-    accel_value = 0
+    #accel_cmd = False
+    #accel_value = 0
 
     brake_cmd = False
     brake_value = 0
