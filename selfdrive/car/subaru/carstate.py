@@ -59,15 +59,18 @@ class CarState(CarStateBase):
       cp.vl["BodyInfo"]['DOOR_OPEN_FL']])
 
     self.throttle_cruise = cp.vl["Throttle"]['Throttle_Cruise']
-    self.es_cruise_throttle = cp_cam.vl["ES_Distance"]['Throttle_Cruise']
+    self.es_cruise_throttle = cp_cam.vl["ES_Distance"]['Cruise_Throttle']
+    self.wipers = cp.vl["BodyInfo"]['WIPERS']
 
     self.es_brake_pressure = cp_cam.vl["ES_Brake"]['Brake_Pressure']
     self.es_brake_state = cp_cam.vl["ES_Brake"]['State']
     self.es_status_brake = cp_cam.vl["ES_Status"]['Cruise_Brake']
+    self.es_cruise_rpm = cp_cam.vl["ES_Status"]['Cruise_RPM']
 
     self.es_distance_msg = copy.copy(cp_cam.vl["ES_Distance"])
     self.es_lkas_msg = copy.copy(cp_cam.vl["ES_LKAS_State"])
     self.es_brake_msg = copy.copy(cp_cam.vl["ES_Brake"])
+    self.es_status_msg = copy.copy(cp_cam.vl["ES_Status"])
 
     return ret
 
@@ -94,6 +97,7 @@ class CarState(CarStateBase):
       ("DOOR_OPEN_FL", "BodyInfo", 1),
       ("DOOR_OPEN_RR", "BodyInfo", 1),
       ("DOOR_OPEN_RL", "BodyInfo", 1),
+      ("WIPERS", "BodyInfo", 0),
       ("Units", "Dash_State", 1),
       ("Gear", "Transmission", 0),
     ]
@@ -114,11 +118,18 @@ class CarState(CarStateBase):
     signals = [
       ("Cruise_Set_Speed", "ES_DashStatus", 0),
 
+      ("Counter", "ES_Status", 0),
+      ("Signal1", "ES_Status", 0),
+      ("Cruise_RPM", "ES_Status", 0),
+      ("Signal2", "ES_Status", 0),
+      ("Cruise_Activated", "ES_Status", 0),
       ("Cruise_Brake", "ES_Status", 0),
+      ("Cruise_Hold", "ES_Status", 0),
+      ("Signal3", "ES_Status", 0),
 
       ("Counter", "ES_Distance", 0),
       ("Signal1", "ES_Distance", 0),
-      ("Throttle_Cruise", "ES_Distance", 0),
+      ("Cruise_Throttle", "ES_Distance", 0),
       ("Signal2", "ES_Distance", 0),
       ("Car_Follow", "ES_Distance", 0),
       ("Signal3", "ES_Distance", 0),
