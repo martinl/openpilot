@@ -71,6 +71,7 @@ class CarState(CarStateBase):
     self.es_lkas_msg = copy.copy(cp_cam.vl["ES_LKAS_State"])
     self.es_brake_msg = copy.copy(cp_cam.vl["ES_Brake"])
     self.es_status_msg = copy.copy(cp_cam.vl["ES_Status"])
+    self.cruise_control_msg = copy.copy(cp.vl["CruiseControl"])
 
     return ret
 
@@ -81,8 +82,11 @@ class CarState(CarStateBase):
       # sig_name, sig_address, default
       ("Steer_Torque_Sensor", "Steering_Torque", 0),
       ("Steering_Angle", "Steering_Torque", 0),
+      ("Counter", "CruiseControl", 0),
+      ("Signal1", "CruiseControl", 0),
       ("Cruise_On", "CruiseControl", 0),
       ("Cruise_Activated", "CruiseControl", 0),
+      ("Signal2", "CruiseControl", 0),
       ("Brake_Pedal", "Brake_Pedal", 0),
       ("Throttle_Pedal", "Throttle", 0),
       ("Throttle_Cruise", "Throttle", 0),

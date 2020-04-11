@@ -21,6 +21,7 @@ class CarController():
   def __init__(self, dbc_name, CP, VM):
     self.lkas_active = False
     self.apply_steer_last = 0
+    self.cruise_control_cnt = -1
     self.es_distance_cnt = -1
     self.es_status_cnt = -1
     self.es_brake_cnt = -1
@@ -70,6 +71,7 @@ class CarController():
     brake_cmd = False
     brake_value = 0
 
+    '''
     # Manual trigger using wipers signal
     if CS.wipers:
       actuators.brake = 0.5
@@ -83,7 +85,6 @@ class CarController():
       print('actuators.gas: %s throttle_cruise: %s es_throttle_cruise: %s' % (actuators.gas, CS.throttle_cruise, CS.es_cruise_throttle))
       print('actuators.brake: %s, es_brake_pressure: %s es_brake_state: %s es_status_brake: %s' % (actuators.brake, CS.es_brake_pressure, CS.es_brake_state, CS.es_status_brake))
 
-    '''
     if enabled and actuators.gas > 0:
       accel_cmd = True
       accel_value = int(1810 + (actuators.gas * 100))
@@ -94,11 +95,11 @@ class CarController():
     '''
 
     if self.es_distance_cnt != CS.es_distance_msg["Counter"]:
-      can_sends.append(subarucan.create_es_distance(self.packer, CS.es_distance_msg, pcm_cancel_cmd, brake_cmd))
+      can_sends.append(subarucan.create_es_distance(self.packer, CS.es_distance_msg, enabled, pcm_cancel_cmd, brake_cmd))
       self.es_distance_cnt = CS.es_distance_msg["Counter"]
 
     if self.es_status_cnt != CS.es_status_msg["Counter"]:
-      can_sends.append(subarucan.create_es_status(self.packer, CS.es_status_msg, brake_cmd))
+      can_sends.append(subarucan.create_es_status(self.packer, CS.es_status_msg, enabled, brake_cmd))
       self.es_status_cnt = CS.es_status_msg["Counter"]
 
     if self.es_lkas_cnt != CS.es_lkas_msg["Counter"]:
@@ -106,8 +107,11 @@ class CarController():
       self.es_lkas_cnt = CS.es_lkas_msg["Counter"]
 
     if self.es_brake_cnt != CS.es_brake_msg["Counter"]:
-      can_sends.append(subarucan.create_es_brake(self.packer, CS.es_brake_msg, brake_cmd, brake_value))
+      can_sends.append(subarucan.create_es_brake(self.packer, CS.es_brake_msg, enabled, brake_cmd, brake_value))
       self.es_brake_cnt = CS.es_brake_msg["Counter"]
 
+    if self.cruise_control_cnt != CS.cruise_control_msg["Counter"]:
+      can_sends.append(subarucan.create_cruise_control(self.packer, CS.cruise_control_msg))
+      self.cruise_control_cnt = CS.cruise_control_msg["Counter"]
 
     return can_sends
