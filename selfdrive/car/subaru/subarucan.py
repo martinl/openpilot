@@ -28,6 +28,7 @@ def create_es_distance(packer, es_distance_msg, pcm_cancel_cmd, brake_cmd):
   elif brake_cmd:
     # set engine idle rpm when braking
     values["Cruise_Throttle"] = 808
+    values["Cruise_Brake_Active"] = 1
 
   return packer.make_can_msg("ES_Distance", 0, values)
 
@@ -55,8 +56,8 @@ def create_es_status(packer, es_status_msg, brake_cmd):
 
   values = copy.copy(es_status_msg)
   if brake_cmd:
-    values["Cruise_Brake"] = 1
-    # set engine low rpm when braking?
-    #values["Cruise_RPM"] = 1040
+    values["Brake_Lights"] = 1
+    # set low rpm when braking?
+    values["Cruise_RPM"] = 100
 
   return packer.make_can_msg("ES_Status", 0, values)

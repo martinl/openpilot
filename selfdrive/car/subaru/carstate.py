@@ -64,7 +64,7 @@ class CarState(CarStateBase):
 
     self.es_brake_pressure = cp_cam.vl["ES_Brake"]['Brake_Pressure']
     self.es_brake_state = cp_cam.vl["ES_Brake"]['State']
-    self.es_status_brake = cp_cam.vl["ES_Status"]['Cruise_Brake']
+    self.es_status_brake = cp_cam.vl["ES_Status"]['Brake_Lights']
     self.es_cruise_rpm = cp_cam.vl["ES_Status"]['Cruise_RPM']
 
     self.es_distance_msg = copy.copy(cp_cam.vl["ES_Distance"])
@@ -133,7 +133,9 @@ class CarState(CarStateBase):
       ("Signal2", "ES_Distance", 0),
       ("Car_Follow", "ES_Distance", 0),
       ("Signal3", "ES_Distance", 0),
+      ("Cruise_Brake_Active", "ES_Distance", 0),
       ("Distance_Swap", "ES_Distance", 0),
+      ("Cruise_EPB", "ES_Distance", 0),
       ("Signal4", "ES_Distance", 0),
       ("Close_Distance", "ES_Distance", 0),
       ("Signal5", "ES_Distance", 0),
