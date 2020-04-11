@@ -123,7 +123,7 @@ class CarState(CarStateBase):
       ("Cruise_RPM", "ES_Status", 0),
       ("Signal2", "ES_Status", 0),
       ("Cruise_Activated", "ES_Status", 0),
-      ("Cruise_Brake", "ES_Status", 0),
+      ("Brake_Lights", "ES_Status", 0),
       ("Cruise_Hold", "ES_Status", 0),
       ("Signal3", "ES_Status", 0),
 
