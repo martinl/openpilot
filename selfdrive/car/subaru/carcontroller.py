@@ -77,30 +77,31 @@ class CarController():
     if CS.wipers:
       actuators.brake = 0.5
       print("wipers set brake 0.5")
-
-    if enabled and CS.es_brake_state >= 8 and actuators.brake > 0:
       brake_cmd = True
-      brake_value = int(actuators.brake * 20)
+    '''
+
+    if enabled and actuators.brake > 0:
+      brake_value = int(actuators.brake * 400)
       print("brake_value: %s" % brake_value)
 
-      print('actuators.gas: %s throttle_cruise: %s es_throttle_cruise: %s' % (actuators.gas, CS.throttle_cruise, CS.es_cruise_throttle))
       print('actuators.brake: %s, es_brake_pressure: %s es_brake_state: %s es_status_brake: %s' % (actuators.brake, CS.es_brake_pressure, CS.es_brake_state, CS.es_status_brake))
 
     if enabled and actuators.gas > 0:
       accel_cmd = True
-      accel_value = int(1810 + (actuators.gas * 100))
+      accel_value = int(1810 + (actuators.gas * 1000))
       print("accel_value: %s" % accel_value)
+
+      print('actuators.gas: %s throttle_cruise: %s es_throttle_cruise: %s' % (actuators.gas, CS.throttle_cruise, CS.es_cruise_throttle))
     else:
       accel_value = 808
       accel_cmd = True
-    '''
 
     if self.es_distance_cnt != CS.es_distance_msg["Counter"]:
-      can_sends.append(subarucan.create_es_distance(self.packer, CS.es_distance_msg, enabled, pcm_cancel_cmd, brake_cmd))
+      can_sends.append(subarucan.create_es_distance(self.packer, CS.es_distance_msg, enabled, pcm_cancel_cmd, brake_cmd, accel_value))
       self.es_distance_cnt = CS.es_distance_msg["Counter"]
 
     if self.es_status_cnt != CS.es_status_msg["Counter"]:
-      can_sends.append(subarucan.create_es_status(self.packer, CS.es_status_msg, enabled, brake_cmd))
+      can_sends.append(subarucan.create_es_status(self.packer, CS.es_status_msg, enabled, brake_cmd, accel_value))
       self.es_status_cnt = CS.es_status_msg["Counter"]
 
     if self.es_lkas_state_cnt != CS.es_lkas_state_msg["Counter"]:
