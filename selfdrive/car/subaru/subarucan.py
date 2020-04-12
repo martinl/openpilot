@@ -33,6 +33,17 @@ def create_es_distance(packer, es_distance_msg, enabled, pcm_cancel_cmd, brake_c
 
   return packer.make_can_msg("ES_Distance", 0, values)
 
+def create_es_dashstatus(packer, es_dashstatus_msg, enabled):
+
+  values = copy.copy(es_dashstatus_msg)
+  values["Cruise_Activated"] = int(enabled)
+  values["Cruise_Disengaged"] = int(not enabled)
+  values["Cruise_State"] = 0 if enabled else 2
+
+  values["Checksum"] = subaru_checksum(packer, values, 801)
+
+  return packer.make_can_msg("ES_DashStatus", 0, values)
+
 def create_es_lkas_state(packer, es_lkas_msg, visual_alert, left_line, right_line):
 
   values = copy.copy(es_lkas_msg)
