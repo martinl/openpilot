@@ -67,11 +67,12 @@ class CarState(CarStateBase):
     self.es_status_brake = cp_cam.vl["ES_Status"]['Brake_Lights']
     self.es_cruise_rpm = cp_cam.vl["ES_Status"]['Cruise_RPM']
 
+    self.es_lkas_state_msg = copy.copy(cp_cam.vl["ES_LKAS_State"])
     self.es_distance_msg = copy.copy(cp_cam.vl["ES_Distance"])
-    self.es_lkas_msg = copy.copy(cp_cam.vl["ES_LKAS_State"])
     self.es_brake_msg = copy.copy(cp_cam.vl["ES_Brake"])
     self.es_status_msg = copy.copy(cp_cam.vl["ES_Status"])
     self.cruise_control_msg = copy.copy(cp.vl["CruiseControl"])
+    self.brake_status_msg = copy.copy(cp.vl["Brake_Status"])
 
     return ret
 
@@ -104,6 +105,12 @@ class CarState(CarStateBase):
       ("WIPERS", "BodyInfo", 0),
       ("Units", "Dash_State", 1),
       ("Gear", "Transmission", 0),
+      ("Counter", "Brake_Status", 0),
+      ("Signal1", "Brake_Status", 0),
+      ("ES_Brake", "Brake_Status", 0),
+      ("Signal2", "Brake_Status", 0),
+      ("Brake", "Brake_Status", 0),
+      ("Signal3", "Brake_Status", 0),
     ]
 
     checks = [

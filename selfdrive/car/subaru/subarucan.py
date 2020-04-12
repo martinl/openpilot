@@ -32,7 +32,7 @@ def create_es_distance(packer, es_distance_msg, enabled, pcm_cancel_cmd, brake_c
 
   return packer.make_can_msg("ES_Distance", 0, values)
 
-def create_es_lkas(packer, es_lkas_msg, visual_alert, left_line, right_line):
+def create_es_lkas_state(packer, es_lkas_msg, visual_alert, left_line, right_line):
 
   values = copy.copy(es_lkas_msg)
   if visual_alert == VisualAlert.steerRequired:
@@ -65,9 +65,20 @@ def create_es_status(packer, es_status_msg, enabled, brake_cmd):
 
   return packer.make_can_msg("ES_Status", 0, values)
 
+# disable cruise_activated feedback to eyesight to keep ready state
 def create_cruise_control(packer, cruise_control_msg):
 
   values = copy.copy(cruise_control_msg)
   values["Cruise_Activated"] = 0
 
   return packer.make_can_msg("CruiseControl", 2, values)
+
+# disable es_brake feedback to eyesight
+def create_brake_status(packer, brake_status_msg):
+
+  values = copy.copy(brake_status_msg)
+  values["ES_Brake"] = 0
+
+  values["Checksum"] = subaru_checksum(packer, values, 316)
+
+  return packer.make_can_msg("Brake_Status", 2, values)

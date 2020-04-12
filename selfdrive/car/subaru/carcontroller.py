@@ -21,11 +21,12 @@ class CarController():
   def __init__(self, dbc_name, CP, VM):
     self.lkas_active = False
     self.apply_steer_last = 0
+    self.es_lkas_state_cnt = -1
     self.cruise_control_cnt = -1
+    self.brake_status_cnt = -1
     self.es_distance_cnt = -1
     self.es_status_cnt = -1
     self.es_brake_cnt = -1
-    self.es_lkas_cnt = -1
     self.steer_rate_limited = False
 
     # Setup detection helper. Routes commands to
@@ -102,9 +103,9 @@ class CarController():
       can_sends.append(subarucan.create_es_status(self.packer, CS.es_status_msg, enabled, brake_cmd))
       self.es_status_cnt = CS.es_status_msg["Counter"]
 
-    if self.es_lkas_cnt != CS.es_lkas_msg["Counter"]:
-      can_sends.append(subarucan.create_es_lkas(self.packer, CS.es_lkas_msg, visual_alert, left_line, right_line))
-      self.es_lkas_cnt = CS.es_lkas_msg["Counter"]
+    if self.es_lkas_state_cnt != CS.es_lkas_state_msg["Counter"]:
+      can_sends.append(subarucan.create_es_lkas_state(self.packer, CS.es_lkas_state_msg, visual_alert, left_line, right_line))
+      self.es_lkas_state_cnt = CS.es_lkas_state_msg["Counter"]
 
     if self.es_brake_cnt != CS.es_brake_msg["Counter"]:
       can_sends.append(subarucan.create_es_brake(self.packer, CS.es_brake_msg, enabled, brake_cmd, brake_value))
@@ -113,5 +114,9 @@ class CarController():
     if self.cruise_control_cnt != CS.cruise_control_msg["Counter"]:
       can_sends.append(subarucan.create_cruise_control(self.packer, CS.cruise_control_msg))
       self.cruise_control_cnt = CS.cruise_control_msg["Counter"]
+
+    if self.brake_status_cnt != CS.brake_status_msg["Counter"]:
+      can_sends.append(subarucan.create_brake_status(self.packer, CS.brake_status_msg))
+      self.brake_status_cnt = CS.brake_status_msg["Counter"]
 
     return can_sends
