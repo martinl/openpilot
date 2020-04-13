@@ -65,7 +65,7 @@ class CarState(CarStateBase):
     self.es_brake_pressure = cp_cam.vl["ES_Brake"]['Brake_Pressure']
     self.es_brake_active = cp_cam.vl["ES_Brake"]['Cruise_Brake_Active']
     self.es_cruise_rpm = cp_cam.vl["ES_Status"]['Cruise_RPM']
-    self.tcm_rpm = cp_cam.vl["Transmission"]['RPM']
+    self.tcm_rpm = cp.vl["Transmission"]['RPM']
 
     self.es_dashstatus_msg = copy.copy(cp_cam.vl["ES_DashStatus"])
     self.es_lkas_state_msg = copy.copy(cp_cam.vl["ES_LKAS_State"])
