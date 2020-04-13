@@ -36,9 +36,10 @@ def create_es_distance(packer, es_distance_msg, enabled, pcm_cancel_cmd, brake_c
 def create_es_dashstatus(packer, es_dashstatus_msg, enabled):
 
   values = copy.copy(es_dashstatus_msg)
-  values["Cruise_Activated"] = int(enabled)
-  values["Cruise_Disengaged"] = int(not enabled)
-  values["Cruise_State"] = 0 if enabled else 2
+  if enabled:
+    values["Cruise_State"] = 0
+    values["Cruise_Activated"] = 1
+    values["Cruise_Disengaged"] = 0
 
   values["Checksum"] = subaru_checksum(packer, values, 801)
 
@@ -59,10 +60,11 @@ def create_es_brake(packer, es_brake_msg, enabled, brake_cmd, brake_value):
 
   values = copy.copy(es_brake_msg)
   if enabled:
-    values["State"] = 8
+    values["Cruise_Activated"] = 1
   if brake_cmd:
     values["Brake_Pressure"] = brake_value
-    values["State"] = 13
+    values["Cruise_Brake_Active"] = 1
+    values["Cruise_Brake_Lights"] = 1
 
   return packer.make_can_msg("ES_Brake", 0, values)
 
@@ -86,11 +88,12 @@ def create_cruise_control(packer, cruise_control_msg):
 
   return packer.make_can_msg("CruiseControl", 2, values)
 
-# disable es_brake feedback to eyesight
-def create_brake_status(packer, brake_status_msg):
+# disable es_brake feedback to eyesight, except PCB
+def create_brake_status(packer, brake_status_msg, es_brake_active):
 
   values = copy.copy(brake_status_msg)
-  values["ES_Brake"] = 0
+  if not es_brake_active:
+    values["ES_Brake"] = 0
 
   values["Checksum"] = subaru_checksum(packer, values, 316)
 

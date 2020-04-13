@@ -67,8 +67,7 @@ class CarController():
 
     ### LONG ###
 
-    #accel_cmd = False
-    #accel_value = 0
+    accel_value = 0
 
     brake_cmd = False
     brake_value = 0
@@ -83,19 +82,13 @@ class CarController():
 
     if enabled and actuators.brake > 0:
       brake_value = int(actuators.brake * 400)
-      print("brake_value: %s" % brake_value)
-
-      print('actuators.brake: %s, es_brake_pressure: %s es_brake_state: %s es_status_brake: %s' % (actuators.brake, CS.es_brake_pressure, CS.es_brake_state, CS.es_status_brake))
+      print('actuators.brake: %s, es_brake_pressure: %s es_brake_active: %s brake_value: %s' % (actuators.brake, CS.es_brake_pressure, CS.es_brake_active, brake_value))
 
     if enabled and actuators.gas > 0:
-      accel_cmd = True
       accel_value = int(1810 + (actuators.gas * 1000))
-      print("accel_value: %s" % accel_value)
-
-      print('actuators.gas: %s throttle_cruise: %s es_throttle_cruise: %s' % (actuators.gas, CS.throttle_cruise, CS.es_cruise_throttle))
+      print('actuators.gas: %s throttle_cruise: %s tcm_rpm: %s es_throttle_cruise: %s accel_value: %s' % (actuators.gas, CS.throttle_cruise, CS.tcm_rpm, CS.es_cruise_throttle, accel_value))
     else:
-      accel_value = 808
-      accel_cmd = True
+      accel_value = 808 # engine idle rpm
 
     if self.es_distance_cnt != CS.es_distance_msg["Counter"]:
       can_sends.append(subarucan.create_es_distance(self.packer, CS.es_distance_msg, enabled, pcm_cancel_cmd, brake_cmd, accel_value))
@@ -122,7 +115,7 @@ class CarController():
       self.cruise_control_cnt = CS.cruise_control_msg["Counter"]
 
     if self.brake_status_cnt != CS.brake_status_msg["Counter"]:
-      can_sends.append(subarucan.create_brake_status(self.packer, CS.brake_status_msg))
+      can_sends.append(subarucan.create_brake_status(self.packer, CS.brake_status_msg, CS.es_brake_active))
       self.brake_status_cnt = CS.brake_status_msg["Counter"]
 
     return can_sends
