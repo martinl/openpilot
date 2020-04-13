@@ -47,7 +47,7 @@ class CarInterface(CarInterfaceBase):
       ret.stoppingControl = True
       ret.startAccel = 0.0
       ret.gasMaxBP = [0.]
-      ret.gasMaxV = [0.6] # max gas allowed
+      ret.gasMaxV = [1.] # max gas allowed
       ret.brakeMaxBP = [0.]  # m/s
       ret.brakeMaxV = [1.]   # max brake allowed
       ret.openpilotLongitudinalControl = True
