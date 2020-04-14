@@ -1,4 +1,4 @@
-#from common.numpy_fast import clip
+from common.numpy_fast import clip
 from selfdrive.car import apply_std_steer_torque_limits
 from selfdrive.car.subaru import subarucan
 from selfdrive.car.subaru.values import DBC
@@ -14,6 +14,10 @@ class CarControllerParams():
     self.STEER_DRIVER_ALLOWANCE = 60   # allowed driver torque before start limiting
     self.STEER_DRIVER_MULTIPLIER = 10  # weight driver torque heavily
     self.STEER_DRIVER_FACTOR = 1       # from dbc
+    self.BRAKE_MIN = 0
+    self.BRAKE_MAX = 400
+    self.RPM_MIN = 0
+    self.RPM_MAX = 3500
 
 
 
@@ -82,17 +86,19 @@ class CarController():
     '''
 
     if enabled and actuators.brake > 0:
-      brake_value = int(actuators.brake * 400)
+      brake_value = clip(int(actuators.brake * 400), P.BRAKE_MIN, P.BRAKE_MAX)
       brake_cmd = True
-      print('actuators.brake: %s, es_brake_pressure: %s es_brake_active: %s brake_value: %s' % (actuators.brake, CS.es_brake_pressure, CS.es_brake_active, brake_value))
+      #print('actuators.brake: %s, es_brake_pressure: %s es_brake_active: %s brake_value: %s' % (actuators.brake, CS.es_brake_pressure, CS.es_brake_active, brake_value))
+
+    # PCB passthrough
+    if enabled and CS.es_brake_active:
+      brake_cmd = True
+      brake_value = CS.es_brake_pressure
 
     if enabled and actuators.gas > 0:
-      cruise_throttle = int(1810 + (actuators.gas * 1000))
-      cruise_rpm = int(600 + (actuators.gas * 1000))
-      print('actuators.gas: %s throttle_cruise: %s tcm_rpm: %s op_cruise_throttle: %s op_cruise_rpm: %s' % (actuators.gas, CS.throttle_cruise, CS.tcm_rpm, cruise_throttle, cruise_rpm))
-    else:
-      cruise_throttle = 808 # engine idle rpm
-      cruise_rpm = 600
+      cruise_throttle = clip(int(1810 + (actuators.gas * 1000)), P.RPM_MIN, P.RPM_MAX)
+      cruise_rpm = clip(int(600 + (actuators.gas * 1100)), P.RPM_MIN, P.RPM_MAX)
+      #print('actuators.gas: %s throttle_cruise: %s tcm_rpm: %s op_cruise_throttle: %s op_cruise_rpm: %s' % (actuators.gas, CS.throttle_cruise, CS.tcm_rpm, cruise_throttle, cruise_rpm))
 
     if self.es_distance_cnt != CS.es_distance_msg["Counter"]:
       can_sends.append(subarucan.create_es_distance(self.packer, CS.es_distance_msg, enabled, pcm_cancel_cmd, brake_cmd, cruise_throttle))
