@@ -41,8 +41,6 @@ def create_es_dashstatus(packer, es_dashstatus_msg, enabled):
     values["Cruise_Activated"] = 1
     values["Cruise_Disengaged"] = 0
 
-  values["Checksum"] = subaru_checksum(packer, values, 801)
-
   return packer.make_can_msg("ES_DashStatus", 0, values)
 
 def create_es_lkas_state(packer, es_lkas_msg, visual_alert, left_line, right_line):
@@ -94,7 +92,5 @@ def create_brake_status(packer, brake_status_msg, es_brake_active):
   values = copy.copy(brake_status_msg)
   if not es_brake_active:
     values["ES_Brake"] = 0
-
-  values["Checksum"] = subaru_checksum(packer, values, 316)
 
   return packer.make_can_msg("Brake_Status", 2, values)
