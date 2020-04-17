@@ -33,17 +33,18 @@ def create_es_distance(packer, es_distance_msg, enabled, pcm_cancel_cmd, brake_c
 
   return packer.make_can_msg("ES_Distance", 0, values)
 
-def create_es_dashstatus(packer, es_dashstatus_msg, enabled):
+def create_es_dashstatus(packer, es_dashstatus_msg, enabled, lead_visible):
 
   values = copy.copy(es_dashstatus_msg)
   if enabled:
     values["Cruise_State"] = 0
     values["Cruise_Activated"] = 1
     values["Cruise_Disengaged"] = 0
+    values["Car_Follow"] = int(lead_visible)
 
   return packer.make_can_msg("ES_DashStatus", 0, values)
 
-def create_es_lkas_state(packer, es_lkas_msg, visual_alert, left_line, right_line):
+def create_es_lkas_state(packer, es_lkas_msg, visual_alert, left_line, right_line, left_ldw, right_ldw):
 
   values = copy.copy(es_lkas_msg)
   if visual_alert == VisualAlert.steerRequired:
@@ -51,6 +52,8 @@ def create_es_lkas_state(packer, es_lkas_msg, visual_alert, left_line, right_lin
 
   values["LKAS_Left_Line_Visible"] = int(left_line)
   values["LKAS_Right_Line_Visible"] = int(right_line)
+  #values["Left_Depart"] = int(left_ldw) # FIXME: find the left ldw signal
+  values["Right_Depart"] = int(right_ldw) # did nothing in test
 
   return packer.make_can_msg("ES_LKAS_State", 0, values)
 

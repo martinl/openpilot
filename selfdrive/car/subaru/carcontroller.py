@@ -14,10 +14,17 @@ class CarControllerParams():
     self.STEER_DRIVER_ALLOWANCE = 60   # allowed driver torque before start limiting
     self.STEER_DRIVER_MULTIPLIER = 10  # weight driver torque heavily
     self.STEER_DRIVER_FACTOR = 1       # from dbc
+    self.RPM_MIN = 0                   # min cruise_rpm
+    self.RPM_MAX = 3200                # max cruise_rpm
+    self.RPM_BASE = 600                # cruise_rpm idle, from stock drive
+    self.RPM_SCALE = 3000              # cruise_rpm, from testing
+    self.THROTTLE_MIN = 0              # min cruise_throttle
+    self.THROTTLE_MAX = 3200           # max cruise_throttle
+    self.THROTTLE_BASE = 1810          # cruise_throttle, from stock drive
+    self.THROTTLE_SCALE = 1000         # from testing
     self.BRAKE_MIN = 0
     self.BRAKE_MAX = 400
-    self.RPM_MIN = 0
-    self.RPM_MAX = 3500
+    self.BRAKE_SCALE = 1200            # from testing
 
 
 
@@ -39,7 +46,7 @@ class CarController():
     self.params = CarControllerParams()
     self.packer = CANPacker(DBC[CP.carFingerprint]['pt'])
 
-  def update(self, enabled, CS, frame, actuators, pcm_cancel_cmd, visual_alert, left_line, right_line):
+  def update(self, enabled, CS, frame, actuators, pcm_cancel_cmd, visual_alert, left_line, right_line, left_ldw, right_ldw, lead_visible):
     """ Controls thread """
 
     P = self.params
@@ -86,7 +93,7 @@ class CarController():
     '''
 
     if enabled and actuators.brake > 0:
-      brake_value = clip(int(actuators.brake * 400), P.BRAKE_MIN, P.BRAKE_MAX)
+      brake_value = clip(int(actuators.brake * P.BRAKE_SCALE), P.BRAKE_MIN, P.BRAKE_MAX)
       brake_cmd = True
       #print('actuators.brake: %s, es_brake_pressure: %s es_brake_active: %s brake_value: %s' % (actuators.brake, CS.es_brake_pressure, CS.es_brake_active, brake_value))
 
@@ -96,8 +103,8 @@ class CarController():
       brake_value = CS.es_brake_pressure
 
     if enabled and actuators.gas > 0:
-      cruise_throttle = clip(int(1810 + (actuators.gas * 1000)), P.RPM_MIN, P.RPM_MAX)
-      cruise_rpm = clip(int(600 + (actuators.gas * 1100)), P.RPM_MIN, P.RPM_MAX)
+      cruise_throttle = clip(int(P.THROTTLE_BASE + (actuators.gas * P.THROTTLE_SCALE)), P.RPM_MIN, P.RPM_MAX)
+      cruise_rpm = clip(int(P.RPM_BASE + (actuators.gas * RPM_SCALE)), P.RPM_MIN, P.RPM_MAX)
       #print('actuators.gas: %s throttle_cruise: %s tcm_rpm: %s op_cruise_throttle: %s op_cruise_rpm: %s' % (actuators.gas, CS.throttle_cruise, CS.tcm_rpm, cruise_throttle, cruise_rpm))
 
     if self.es_distance_cnt != CS.es_distance_msg["Counter"]:
@@ -109,11 +116,11 @@ class CarController():
       self.es_status_cnt = CS.es_status_msg["Counter"]
 
     if self.es_dashstatus_cnt != CS.es_dashstatus_msg["Counter"]:
-      can_sends.append(subarucan.create_es_dashstatus(self.packer, CS.es_dashstatus_msg, enabled))
+      can_sends.append(subarucan.create_es_dashstatus(self.packer, CS.es_dashstatus_msg, enabled, lead_visible))
       self.es_dashstatus_cnt = CS.es_dashstatus_msg["Counter"]
  
     if self.es_lkas_state_cnt != CS.es_lkas_state_msg["Counter"]:
-      can_sends.append(subarucan.create_es_lkas_state(self.packer, CS.es_lkas_state_msg, visual_alert, left_line, right_line))
+      can_sends.append(subarucan.create_es_lkas_state(self.packer, CS.es_lkas_state_msg, visual_alert, left_line, right_line, left_ldw, right_ldw))
       self.es_lkas_state_cnt = CS.es_lkas_state_msg["Counter"]
 
     if self.es_brake_cnt != CS.es_brake_msg["Counter"]:
