@@ -104,7 +104,7 @@ class CarController():
 
     if enabled and actuators.gas > 0:
       cruise_throttle = clip(int(P.THROTTLE_BASE + (actuators.gas * P.THROTTLE_SCALE)), P.RPM_MIN, P.RPM_MAX)
-      cruise_rpm = clip(int(P.RPM_BASE + (actuators.gas * RPM_SCALE)), P.RPM_MIN, P.RPM_MAX)
+      cruise_rpm = clip(int(P.RPM_BASE + (actuators.gas * P.RPM_SCALE)), P.RPM_MIN, P.RPM_MAX)
       #print('actuators.gas: %s throttle_cruise: %s tcm_rpm: %s op_cruise_throttle: %s op_cruise_rpm: %s' % (actuators.gas, CS.throttle_cruise, CS.tcm_rpm, cruise_throttle, cruise_rpm))
 
     if self.es_distance_cnt != CS.es_distance_msg["Counter"]:
