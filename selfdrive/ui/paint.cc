@@ -672,20 +672,19 @@ static void ui_draw_driver_view(UIState *s) {
 static void eng_ui_draw_UI(UIState *s)
 {
   //get 3-state switch position
-  int tri_state_switch = 0;
+  char tri_state_switch = 0;
   FILE *tri_state_fd = fopen("/sys/devices/virtual/switch/tri-state-key/state", "r");
-  //if we can't open then switch should be considered in the middle, nothing done
+  //if we can't open then switch should be considered in the left, nothing done
   if (tri_state_fd == NULL)
   {
     tri_state_switch = 1;
   }
   else
   {
-    fprintf(tri_state_fd, "%d", tri_state_switch);
+    fread(&tri_state_switch, sizeof(char), 1, tri_state_fd);
+    tri_state_switch = tri_state_switch - 48;
     fclose(tri_state_fd);
   }
-
-  //s->ignoreLayout = (tri_state_switch==3);
 
   // draw engineering ui measures
   if (tri_state_switch >= 2)
