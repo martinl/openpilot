@@ -901,12 +901,13 @@ int main(int argc, char* argv[]) {
       // always process events offroad
       check_messages(s);
 
-   // reverse gear
-    else if (s->scene.gear == 4) {
-        set_awake(s, false);
     } else {
-
-      set_awake(s, true);
+      // blank screen on reverse gear
+      if (s->scene.gear == 4) {
+        set_awake(s, false);
+      } else {
+        set_awake(s, true);
+      }
       // Car started, fetch a new rgb image from ipc
       if (s->vision_connected){
         ui_update(s);
