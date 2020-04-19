@@ -77,7 +77,6 @@ def create_es_status(packer, es_status_msg, enabled, brake_cmd, cruise_rpm):
     values["Cruise_RPM"] = cruise_rpm
   if brake_cmd:
     values["Cruise_RPM"] = 600
-    values["Brake_Lights"] = 1 # test if this is set by es_brake
 
   return packer.make_can_msg("ES_Status", 0, values)
 

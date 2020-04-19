@@ -24,7 +24,7 @@ class CarControllerParams():
     self.THROTTLE_SCALE = 1000         # from testing
     self.BRAKE_MIN = 0
     self.BRAKE_MAX = 400
-    self.BRAKE_SCALE = 1200            # from testing
+    self.BRAKE_SCALE = 1000            # from testing
 
 
 
