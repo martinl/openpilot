@@ -3,7 +3,7 @@ import numpy as np
 from numpy.linalg import solve
 
 """
-Dynamic bycicle model from "The Science of Vehicle Dynamics (2014), M. Guiggiani"
+Dynamic bicycle model from "The Science of Vehicle Dynamics (2014), M. Guiggiani"
 
 The state is x = [v, r]^T
 with v lateral speed [m/s], and r rotational speed [rad/s]
@@ -29,7 +29,7 @@ def create_dyn_state_matrices(u, VM):
 
   Parameters in the vehicle model:
     cF: Tire stiffnes Front [N/rad]
-    cR: Tire stiffnes Front [N/rad]
+    cR: Tire stiffnes Rear [N/rad]
     aF: Distance from CG to front wheels [m]
     aR: Distance from CG to rear wheels [m]
     m: Mass [kg]

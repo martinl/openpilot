@@ -40,8 +40,6 @@ class CarController():
     self.es_status_cnt = -1
     self.es_brake_cnt = -1
     self.steer_rate_limited = False
-    self.lkas_signal = 0
-    self.prev_wipers = 0
 
     # Setup detection helper. Routes commands to
     # an appropriate CAN bus number.
@@ -88,13 +86,10 @@ class CarController():
 
     '''
     # Manual trigger using wipers signal
-    if CS.wipers and not self.prev_wipers:
-      #actuators.brake = 0.5
-      #print("wipers set brake 0.5")
-      #brake_cmd = True
-      self.lkas_signal += 1
-      print("lkas_signal: %s" % (self.lkas_signal))
-    self.prev_wipers = CS.wipers
+    if CS.wipers:
+      actuators.brake = 0.5
+      print("wipers set brake 0.5")
+      brake_cmd = True
     '''
 
     if enabled and actuators.brake > 0:
@@ -112,6 +107,32 @@ class CarController():
       cruise_rpm = clip(int(P.RPM_BASE + (actuators.gas * P.RPM_SCALE)), P.RPM_MIN, P.RPM_MAX)
       #print('actuators.gas: %s throttle_cruise: %s tcm_rpm: %s op_cruise_throttle: %s op_cruise_rpm: %s' % (actuators.gas, CS.throttle_cruise, CS.tcm_rpm, cruise_throttle, cruise_rpm))
 
+      # Te = torque at rpm (lookup table)
+      # a  = acceleration (actuators.gas)
+      # m  = vehicle mass (1470 kg)
+      # xg = gear ratio 
+      # CVT paddle shift gear ratios:
+      # 1. 3.6
+      # 2. 2.155
+      # 3. 1.516
+      # 4. 1.092
+      # 5. 0.843
+      # 6. 0.667
+      # 7. 0.557
+      #
+      # xd = differential ratio / final drive ratio (3.9)
+      # n  = transmission efficiency (0.7) - guess
+      # Rw = wheel radius (33.91 mm) - P225/55R17 95H
+      a = actuators.gas
+      m = CS.CP.mass
+      xg = 1.516
+      xd = 3.9
+      n = 0.7
+      Rw = 0.34
+
+      Te = a * m * xg * xd * n * Rw
+      print('actuators.gas: %s torque: %s' % (actuators.gas, Te))
+
     if self.es_distance_cnt != CS.es_distance_msg["Counter"]:
       can_sends.append(subarucan.create_es_distance(self.packer, CS.es_distance_msg, enabled, pcm_cancel_cmd, brake_cmd, cruise_throttle))
       self.es_distance_cnt = CS.es_distance_msg["Counter"]
@@ -125,7 +146,7 @@ class CarController():
       self.es_dashstatus_cnt = CS.es_dashstatus_msg["Counter"]
  
     if self.es_lkas_state_cnt != CS.es_lkas_state_msg["Counter"]:
-      can_sends.append(subarucan.create_es_lkas_state(self.packer, CS.es_lkas_state_msg, visual_alert, left_line, right_line, left_ldw, right_ldw, self.lkas_signal))
+      can_sends.append(subarucan.create_es_lkas_state(self.packer, CS.es_lkas_state_msg, visual_alert, left_line, right_line, left_ldw, right_ldw))
       self.es_lkas_state_cnt = CS.es_lkas_state_msg["Counter"]
 
     if self.es_brake_cnt != CS.es_brake_msg["Counter"]:
@@ -139,8 +160,5 @@ class CarController():
     if self.brake_status_cnt != CS.brake_status_msg["Counter"]:
       can_sends.append(subarucan.create_brake_status(self.packer, CS.brake_status_msg, CS.es_brake_active))
       self.brake_status_cnt = CS.brake_status_msg["Counter"]
-
-    if self.lkas_signal >= 16:
-      self.lkas_signal = 0
 
     return can_sends

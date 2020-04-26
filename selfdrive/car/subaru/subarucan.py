@@ -44,21 +44,18 @@ def create_es_dashstatus(packer, es_dashstatus_msg, enabled, lead_visible):
 
   return packer.make_can_msg("ES_DashStatus", 0, values)
 
-def create_es_lkas_state(packer, es_lkas_msg, visual_alert, left_line, right_line, left_ldw, right_ldw, lkas_signal):
+def create_es_lkas_state(packer, es_lkas_msg, visual_alert, left_line, right_line, left_ldw, right_ldw):
 
   values = copy.copy(es_lkas_msg)
   if visual_alert == VisualAlert.steerRequired:
     values["Keep_Hands_On_Wheel"] = 1
+  elif left_ldw == 1:
+    values["LKAS_Alert"] = 12
+  elif right_ldw == 1:
+    values["LKAS_Alert"] = 11
 
   values["LKAS_Left_Line_Visible"] = int(left_line)
   values["LKAS_Right_Line_Visible"] = int(right_line)
-
-  if left_ldw:
-    values["LKAS_Alert"] = 7 # 11?
-  if right_ldw:
-    values["LKAS_Alert"] = 12
-
-  values["LKAS_Alert"] = lkas_signal
 
   return packer.make_can_msg("ES_LKAS_State", 0, values)
 

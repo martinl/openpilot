@@ -52,6 +52,30 @@ class CarInterface(CarInterfaceBase):
       ret.brakeMaxV = [1.]   # max brake allowed
       ret.openpilotLongitudinalControl = True
 
+    if candidate in [CAR.CROSSTREK]:
+      ret.mass = 1470. + STD_CARGO_KG
+      ret.wheelbase = 2.635
+      ret.centerToFront = ret.wheelbase * 0.5
+      ret.steerRatio = 15
+      ret.steerActuatorDelay = 0.4   # end-to-end angle controller
+      ret.lateralTuning.pid.kf = 0.00005
+      ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0., 20.], [0., 20.]]
+      ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.2, 0.3], [0.02, 0.03]]
+      # longitudinal
+      # FIXME: toyota values, need tuning
+      ret.longitudinalTuning.kpBP = [0., 5., 35.]
+      ret.longitudinalTuning.kpV = [3.6, 2.4, 1.5]
+      ret.longitudinalTuning.kiBP = [0., 35.]
+      ret.longitudinalTuning.kiV = [0.54, 0.36]
+
+      ret.stoppingControl = True
+      ret.startAccel = 0.0
+      ret.gasMaxBP = [0.]
+      ret.gasMaxV = [1.] # max gas allowed
+      ret.brakeMaxBP = [0.]  # m/s
+      ret.brakeMaxV = [1.]   # max brake allowed
+      ret.openpilotLongitudinalControl = True
+
     # TODO: get actual value, for now starting with reasonable value for
     # civic and scaling by mass and wheelbase
     ret.rotationalInertia = scale_rot_inertia(ret.mass, ret.wheelbase)
