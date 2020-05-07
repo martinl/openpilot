@@ -530,7 +530,7 @@ void handle_message(UIState *s, SubMaster &sm) {
   } else if (which == cereal::Event::CAR_STATE) {
     auto data = event.getCarState();
     auto gear = data.getGearShifter();
-    printf("gear: %d\n", scene.gear);
+    //printf("gear: %hu\n", gear);
     if (gear == cereal::CarState::GearShifter::REVERSE) {
       s->reverse_gear_timer++;
     }
