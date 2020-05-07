@@ -110,7 +110,7 @@ class CarController():
       # Te = torque at rpm (lookup table)
       # a  = acceleration (actuators.gas)
       # m  = vehicle mass (1470 kg)
-      # xg = gear ratio 
+      # xg = gear ratio
       # CVT paddle shift gear ratios:
       # 1. 3.6
       # 2. 2.155
@@ -144,7 +144,7 @@ class CarController():
     if self.es_dashstatus_cnt != CS.es_dashstatus_msg["Counter"]:
       can_sends.append(subarucan.create_es_dashstatus(self.packer, CS.es_dashstatus_msg, enabled, lead_visible))
       self.es_dashstatus_cnt = CS.es_dashstatus_msg["Counter"]
- 
+
     if self.es_lkas_state_cnt != CS.es_lkas_state_msg["Counter"]:
       can_sends.append(subarucan.create_es_lkas_state(self.packer, CS.es_lkas_state_msg, visual_alert, left_line, right_line, left_ldw, right_ldw))
       self.es_lkas_state_cnt = CS.es_lkas_state_msg["Counter"]
