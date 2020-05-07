@@ -527,8 +527,6 @@ void handle_message(UIState *s, SubMaster &sm) {
 
     s->active_app = cereal::UiLayoutState::App::NONE;
     update_offroad_layout_state(s);
-    s->scene.hwType = datad.hwType;
-    s->hardware_timeout = 5*30; // 5 seconds at 30 fps
   } else if (which == cereal::Event::CAR_STATE) {
     auto data = event.getCarState();
     scene.gear = data.getGearShifter();
