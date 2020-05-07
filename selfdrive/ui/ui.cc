@@ -529,9 +529,9 @@ void handle_message(UIState *s, SubMaster &sm) {
     update_offroad_layout_state(s);
   } else if (which == cereal::Event::CAR_STATE) {
     auto data = event.getCarState();
-    scene.gear = data.getGearShifter();
+    auto gear = data.getGearShifter();
     printf("gear: %d\n", scene.gear);
-    if (scene.gear == cereal::CarState::GearShifter::REVERSE) {
+    if (gear == cereal::CarState::GearShifter::REVERSE) {
       s->reverse_gear_timer++;
     }
     else {
@@ -941,7 +941,7 @@ int main(int argc, char* argv[]) {
 
     } else {
       // blank screen while on reverse gear
-      if (s->reverse_gear_timer > 1 * UI_FREQ) {
+      if (s->reverse_gear_timer > 3 * UI_FREQ) {
         set_awake(s, false);
       } else {
         set_awake(s, true);
