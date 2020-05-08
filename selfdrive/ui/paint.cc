@@ -671,7 +671,7 @@ static int eng_ui_draw_measure(UIState *s,  const char* bb_value, const char* bb
     int ry = bb_y + (int)(bb_valueFontSize*2.5/2)+25;
     nvgTranslate(s->vg,rx,ry);
     nvgRotate(s->vg, -1.5708); // -90 deg in radians
-    nvgFontFace(s->vg, s->font_sans_regular);
+    nvgFontFaceId(s->vg, s->font_sans_regular);
     nvgFontSize(s->vg, (int)(bb_uomFontSize*2.5));
     nvgFillColor(s->vg, bb_uomColor);
     nvgText(s->vg, 0, 0, bb_uom, NULL);
