@@ -109,8 +109,8 @@ class CarController():
       cruise_throttle = clip(int(P.THROTTLE_BASE + (actuators.gas * P.THROTTLE_SCALE)), P.RPM_MIN, P.RPM_MAX)
       cruise_rpm = clip(int(P.RPM_BASE + (actuators.gas * P.RPM_SCALE)), P.RPM_MIN, P.RPM_MAX)
 
-      apply_throttle = clip(cruise_throttle, max(apply_throttle_last - P.THROTTLE_DELTA_DOWN, -P.THROTTLE_DELTA_UP),
-                                    apply_throttle_last + P.THROTTLE_DELTA_UP)
+      apply_throttle = clip(cruise_throttle, max(self.apply_throttle_last - P.THROTTLE_DELTA_DOWN, -P.THROTTLE_DELTA_UP),
+                                    self.apply_throttle_last + P.THROTTLE_DELTA_UP)
 
       self.apply_throttle_last = apply_throttle
       #print('actuators.gas: %s throttle_cruise: %s tcm_rpm: %s op_cruise_throttle: %s op_cruise_rpm: %s' % (actuators.gas, CS.throttle_cruise, CS.tcm_rpm, cruise_throttle, cruise_rpm))
