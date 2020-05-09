@@ -16,7 +16,7 @@ class CarInterface(CarInterfaceBase):
 
     ret.carName = "subaru"
     # enable visual radar
-    ret.radarOffCan = False
+    ret.radarOffCan = True
     ret.safetyModel = car.CarParams.SafetyModel.subaru
 
     # Subaru port is a community feature, since we don't own one to test
@@ -56,7 +56,7 @@ class CarInterface(CarInterfaceBase):
       ret.mass = 1470. + STD_CARGO_KG
       ret.wheelbase = 2.635
       ret.centerToFront = ret.wheelbase * 0.5
-      ret.steerRatio = 15
+      ret.steerRatio = 15 # spec = 13
       ret.steerActuatorDelay = 0.4   # end-to-end angle controller
       ret.lateralTuning.pid.kf = 0.00005
       ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0., 20.], [0., 20.]]
