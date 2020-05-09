@@ -16,20 +16,20 @@ class CarControllerParams():
     self.STEER_DRIVER_FACTOR = 1       # from dbc
 
     self.RPM_MIN = 0                   # min cruise_rpm
-    self.RPM_MAX = 3100                # max cruise_rpm
+    self.RPM_MAX = 3200                # max cruise_rpm
     self.RPM_BASE = 600                # cruise_rpm idle, from stock drive
     self.RPM_SCALE = 3000              # cruise_rpm, from testing
 
     self.THROTTLE_MIN = 0              # min cruise_throttle
-    self.THROTTLE_MAX = 3200           # max cruise_throttle
+    self.THROTTLE_MAX = 3400           # max cruise_throttle
     self.THROTTLE_BASE = 1810          # cruise_throttle, from stock drive
     self.THROTTLE_SCALE = 3000         # from testing
 
     self.RPM_DELTA_UP = 50
     self.RPM_DELTA_DOWN = 50
 
-    self.THROTTLE_DELTA_UP = 50
-    self.THROTTLE_DELTA_DOWN = 50
+    self.THROTTLE_DELTA_UP = 5
+    self.THROTTLE_DELTA_DOWN = 5
 
     self.BRAKE_MIN = 0
     self.BRAKE_MAX = 400
@@ -144,6 +144,7 @@ class CarController():
 
       #print('actuators.gas: %s throttle_cruise: %s tcm_rpm: %s op_cruise_throttle: %s op_cruise_rpm: %s' % (actuators.gas, CS.throttle_cruise, CS.tcm_rpm, cruise_throttle, cruise_rpm))
 
+      '''
       # Te = torque at rpm (lookup table)
       # a  = acceleration (actuators.gas)
       # m  = vehicle mass (1470 kg)
@@ -169,6 +170,7 @@ class CarController():
 
       Te = a * m * xg * xd * n * Rw
       print('actuators.gas: %s torque: %s' % (actuators.gas, Te))
+      '''
 
     if self.es_distance_cnt != CS.es_distance_msg["Counter"]:
       can_sends.append(subarucan.create_es_distance(self.packer, CS.es_distance_msg, enabled, pcm_cancel_cmd, brake_cmd, cruise_throttle))
