@@ -82,6 +82,7 @@ class CarController():
     ### LONG ###
 
     cruise_throttle = 0
+    apply_throttle = 0
     cruise_rpm = 0
 
     brake_cmd = False
