@@ -35,7 +35,7 @@ class CarControllerParams():
     self.BRAKE_MAX = 400
     self.BRAKE_SCALE = 1000            # from testing
 
-ACCEL_HYST_GAP = 2  # don't change accel command for small oscilalitons within this value
+ACCEL_HYST_GAP = 10  # don't change accel command for small oscilalitons within this value
 
 def accel_hysteresis(accel, accel_steady):
 
