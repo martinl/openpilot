@@ -28,8 +28,8 @@ class CarControllerParams():
     self.RPM_DELTA_UP = 50
     self.RPM_DELTA_DOWN = 50
 
-    self.THROTTLE_DELTA_UP = 5
-    self.THROTTLE_DELTA_DOWN = 5
+    self.THROTTLE_DELTA_UP = 50
+    self.THROTTLE_DELTA_DOWN = 50
 
     self.BRAKE_MIN = 0
     self.BRAKE_MAX = 400
