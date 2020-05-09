@@ -345,10 +345,6 @@ routes = {
     'enableCamera': True,
   },
   "791340bc01ed993d|2019-03-10--16-28-08": {
-    'carFingerprint': SUBARU.IMPREZA,
-    'enableCamera': True,
-  },
-  "791340bc01ed993d|2019-03-10--16-28-08": {
     'carFingerprint': SUBARU.CROSSTREK,
     'enableCamera': True,
   },
@@ -403,6 +399,7 @@ non_tested_cars = [
   TOYOTA.CHRH,
   TOYOTA.HIGHLANDERH,
   TOYOTA.HIGHLANDERH_TSS2,
+  SUBARU.IMPREZA,
 ]
 
 if __name__ == "__main__":
