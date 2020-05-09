@@ -35,6 +35,18 @@ class CarControllerParams():
     self.BRAKE_MAX = 400
     self.BRAKE_SCALE = 1000            # from testing
 
+ACCEL_HYST_GAP = 2  # don't change accel command for small oscilalitons within this value
+
+def accel_hysteresis(accel, accel_steady):
+
+  # for small accel oscillations within ACCEL_HYST_GAP, don't change the accel command
+  if accel > accel_steady + ACCEL_HYST_GAP:
+    accel_steady = accel - ACCEL_HYST_GAP
+  elif accel < accel_steady - ACCEL_HYST_GAP:
+    accel_steady = accel + ACCEL_HYST_GAP
+  accel = accel_steady
+
+  return accel, accel_steady
 
 
 class CarController():
@@ -51,6 +63,8 @@ class CarController():
     self.es_status_cnt = -1
     self.es_brake_cnt = -1
     self.steer_rate_limited = False
+    self.rpm_steady = 0
+    self.throttle_steady = 0
 
     # Setup detection helper. Routes commands to
     # an appropriate CAN bus number.
@@ -117,6 +131,9 @@ class CarController():
       # limit min and max values
       cruise_throttle = clip(int(P.THROTTLE_BASE + (actuators.gas * P.THROTTLE_SCALE)), P.THROTTLE_MIN, P.THROTTLE_MAX)
       cruise_rpm = clip(int(P.RPM_BASE + (actuators.gas * P.RPM_SCALE)), P.RPM_MIN, P.RPM_MAX)
+      # hysteresis
+      cruise_throttle, self.throttle_steady = accel_hysteresis(cruise_throttle, self.throttle_steady)
+      cruise_rpm, self.rpm_steady = accel_hysteresis(cruise_rpm, self.rpm_steady)
 
       # slow down the signals change
       cruise_throttle = clip(cruise_throttle, self.cruise_throttle_last - P.THROTTLE_DELTA_DOWN, self.cruise_throttle_last + P.THROTTLE_DELTA_UP)
