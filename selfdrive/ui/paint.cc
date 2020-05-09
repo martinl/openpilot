@@ -649,20 +649,8 @@ static int eng_ui_draw_measure(UIState *s,  const char* bb_value, const char* bb
     dx = (int)(bb_uomFontSize*2.5/2);
   }
   // print value
-  /*
-  nvgFontFace(s->vg, "sans-semibold");
-  nvgFontSize(s->vg, bb_valueFontSize*2.5);
-  nvgFillColor(s->vg, bb_valueColor);
-  nvgText(s->vg, bb_x-dx/2, bb_y+ (int)(bb_valueFontSize*2.5)+5, bb_value, NULL);
-  */
   ui_draw_text(s->vg, bb_x-dx/2, bb_y + (int)(bb_valueFontSize*2.5)+5, bb_value, bb_valueFontSize*2.5, bb_valueColor, s->font_sans_semibold);
   // print label
-  /*
-  nvgFontFace(s->vg, "sans-regular");
-  nvgFontSize(s->vg, bb_labelFontSize*2.5);
-  nvgFillColor(s->vg, bb_labelColor);
-  nvgText(s->vg, bb_x, bb_y + (int)(bb_valueFontSize*2.5)+5 + (int)(bb_labelFontSize*2.5)+5, bb_label, NULL);
-  */
   ui_draw_text(s->vg, bb_x, bb_y + (int)(bb_valueFontSize*2.5)+5 + (int)(bb_labelFontSize*2.5)+5, bb_label, bb_labelFontSize*2.5, bb_labelColor, s->font_sans_regular);
   // print uom
   if (strlen(bb_uom) > 0) {
@@ -785,13 +773,6 @@ static void eng_ui_draw_measures_left(UIState *s, int bb_x, int bb_y, int bb_w )
   // finally draw the frame
   bb_h += 20;
   ui_draw_rect(s->vg, bb_x, bb_y, bb_w, bb_h, nvgRGBA(255,255,255,80), 20, 6);
-  /*
-  nvgBeginPath(s->vg);
-  nvgRoundedRect(s->vg, bb_x, bb_y, bb_w, bb_h, 20);
-  nvgStrokeColor(s->vg, nvgRGBA(255,255,255,80));
-  nvgStrokeWidth(s->vg, 6);
-  nvgStroke(s->vg);
-  */
 }
 
 static void eng_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w ) {
@@ -917,16 +898,9 @@ static void eng_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w 
     bb_ry = bb_y + bb_h;
   }
 
-  //finally draw the frame
+  // finally draw the frame
   bb_h += 20;
   ui_draw_rect(s->vg, bb_x, bb_y, bb_w, bb_h, nvgRGBA(255,255,255,80), 20, 6);
-  /*
-  nvgBeginPath(s->vg);
-  nvgRoundedRect(s->vg, bb_x, bb_y, bb_w, bb_h, 20);
-  nvgStrokeColor(s->vg, nvgRGBA(255,255,255,80));
-  nvgStrokeWidth(s->vg, 6);
-  nvgStroke(s->vg);
-  */
 }
 
 static void eng_ui_draw_UI(UIState *s)
