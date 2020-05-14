@@ -76,7 +76,10 @@ class CarState(CarStateBase):
       self.ready = True
 
     if self.car_fingerprint in [CAR.OUTBACK, CAR.LEGACY]:
-      ret.cruiseState.speed = cp_cam.vl["ES_DashStatus"]["Cruise_Set_Speed"]
+      ret.cruiseState.speed = cp_cam.vl["ES_DashStatus"]["Cruise_Set_Speed"]  * CV.KPH_TO_MS
+      # 1 = imperial
+      if cp.vl["Dash_State"]['Units'] == 1:
+        ret.cruiseState.speed *= CV.MPH_TO_KPH
       self.ready = not cp_cam.vl["ES_DashStatus"]["Not_Ready_Startup"]
 
     return ret
@@ -106,6 +109,7 @@ class CarState(CarStateBase):
       ("Gear", "Transmission", 0),
       ("L_ADJACENT", "BSD_RCTA", 0),
       ("R_ADJACENT", "BSD_RCTA", 0),
+      ("Units", "Dash_State", 1),
     ]
 
     checks = [
@@ -116,9 +120,6 @@ class CarState(CarStateBase):
     ]
 
     if CP.carFingerprint == CAR.IMPREZA:
-      signals += [
-        ("Units", "Dash_State", 1),
-      ]
       checks += [
         ("BodyInfo", 10),
         ("CruiseControl", 20),
