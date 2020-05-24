@@ -27,7 +27,7 @@ class CarInterface(CarInterfaceBase):
     ret.steerRateCost = 0.7
     ret.steerLimitTimer = 0.4
 
-    if candidate in [CAR.IMPREZA]:
+    if candidate == CAR.IMPREZA:
       ret.safetyModel = car.CarParams.SafetyModel.subaru
       ret.mass = 1568. + STD_CARGO_KG
       ret.wheelbase = 2.67
@@ -37,6 +37,17 @@ class CarInterface(CarInterfaceBase):
       ret.lateralTuning.pid.kf = 0.00005
       ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0., 20.], [0., 20.]]
       ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.2, 0.3], [0.02, 0.03]]
+
+    # FIXME: add FPv2.0 since ASCENT FPv1 matches IMPREZA (ndtran)
+    if candidate == CAR.ASCENT:
+      ret.mass = 2031. + STD_CARGO_KG
+      ret.wheelbase = 2.89
+      ret.centerToFront = ret.wheelbase * 0.5
+      ret.steerRatio = 13.5
+      ret.steerActuatorDelay = 0.3   # end-to-end angle controller
+      ret.lateralTuning.pid.kf = 0.00003
+      ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0., 20.], [0., 20.]]
+      ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.0025, 0.1], [0.00025, 0.01]]
 
     if candidate in [CAR.OUTBACK, CAR.FORESTER]:
       ret.safetyModel = car.CarParams.SafetyModel.subaruLegacy
@@ -49,7 +60,7 @@ class CarInterface(CarInterfaceBase):
       ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0., 10., 20.], [0., 10., 20.]]
       ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.01, 0.05, 0.2], [0.003, 0.018, 0.025]]
 
-    if candidate in [CAR.LEGACY]:
+    if candidate == CAR.LEGACY:
       ret.safetyModel = car.CarParams.SafetyModel.subaruLegacy
       ret.mass = 1568 + STD_CARGO_KG
       ret.wheelbase = 2.67
