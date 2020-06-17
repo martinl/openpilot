@@ -99,7 +99,7 @@ FINGERPRINTS = {
 }
 
 # Use only FPv2
-IGNORED_FINGERPRINTS = [CAR.IMPREZA]
+IGNORED_FINGERPRINTS = [CAR.IMPREZA, CAR.OUTBACK]
 
 FW_VERSIONS = {
   CAR.IMPREZA: {
@@ -166,6 +166,7 @@ FW_VERSIONS = {
       b'\x5b\xb0\x00\x00',
       b'\x5b\xf7\xbc\x03',
       b'[\xf7\xac\x03',
+      b'{\x9a\xac\x00',
     ],
     (Ecu.eps, 0x746, None): [
       b'\x6b\xb0\x00\x00',
@@ -184,18 +185,21 @@ FW_VERSIONS = {
       b'\xf1\x00\xf0\xe0\x0e',
       b'\x00\x00c\x94\x00\x00\x00\x00',
       b'\x00\x00c\x94\x1f@\x10\b',
+      b'\x00\x00c\xec\x1f@ \x04',
     ],
     (Ecu.engine, 0x7e0, None): [
       b'\xb4\x2b\x40\x70\x07',
       b'\xab\x22\x40\x40\x07',
       b'\xa0\x62\x41\x71\x07',
       b'\xa0*@q\a',
+      b'\xb4+@p\a',
     ],
     (Ecu.transmission, 0x7e1, None): [
       b'\xf1\x00\xa4\x10\x40',
       b'\xbe\xf2\x40\x80\x00',
       b'\xbf\xe2\x40\x80\x00',
       b'\xbf\xf2@\x80\x00',
+      b'\xbd\xfb\xe0\x80\x00',
     ],
   },
 }
