@@ -42,12 +42,12 @@ class CarInterface(CarInterfaceBase):
       ret.mass = 1480. + STD_CARGO_KG
       ret.wheelbase = 2.67
       ret.centerToFront = ret.wheelbase * 0.5
-      ret.steerRatio = 13
-      ret.steerRateCost = 1
-      ret.steerActuatorDelay = 0.1   # end-to-end angle controller
-      ret.lateralTuning.pid.kf = 0.00003
+      ret.steerRatio = 7
+      ret.steerRateCost = 0.7
+      ret.steerActuatorDelay = 0.7   # end-to-end angle controller
+      ret.lateralTuning.pid.kf = 0.00005
       ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0., 10., 20., 30.], [0., 10., 20., 30.]]
-      ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.01, 0.05, 0.2, 0.21], [0.0010, 0.004, 0.008, 0.009]]
+      ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.005, 0.025, 0.1, 0.105], [0.0005, 0.002, 0.008, 0.085]]
 
     # TODO: get actual value, for now starting with reasonable value for
     # civic and scaling by mass and wheelbase
