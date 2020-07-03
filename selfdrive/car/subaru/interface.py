@@ -24,8 +24,10 @@ class CarInterface(CarInterfaceBase):
     # force openpilot to fake the stock camera, since car harness is not supported yet and old style giraffe (with switches)
     # was never released
     ret.enableCamera = True
-
     ret.steerLimitTimer = 0.4
+
+    if candidate not in [CAR.CROSSTREK_2020]:  # These cars use LQR/INDI
+      ret.lateralTuning.init('pid')
 
     if candidate in [CAR.IMPREZA]:
       ret.mass = 1568. + STD_CARGO_KG
@@ -39,15 +41,21 @@ class CarInterface(CarInterfaceBase):
       ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.2, 0.3], [0.02, 0.03]]
 
     if candidate in [CAR.CROSSTREK_2020]:
+      ret.lateralTuning.init('indi')
       ret.mass = 1480. + STD_CARGO_KG
       ret.wheelbase = 2.67
       ret.centerToFront = ret.wheelbase * 0.5
       ret.steerRatio = 13
       ret.steerRateCost = 1
       ret.steerActuatorDelay = 0.1   # end-to-end angle controller
-      ret.lateralTuning.pid.kf = 0.00003
-      ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0., 10., 20., 30.], [0., 10., 20., 30.]]
-      ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.01, 0.05, 0.2, 0.21], [0.0010, 0.004, 0.008, 0.009]]
+      # ret.lateralTuning.pid.kf = 0.00003
+      # ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0., 10., 20., 30.], [0., 10., 20., 30.]]
+      # ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.01, 0.05, 0.2, 0.21], [0.0010, 0.004, 0.008, 0.009]]
+      ret.lateralTuning.init('indi')
+      ret.lateralTuning.indi.innerLoopGain = 3.6
+      ret.lateralTuning.indi.outerLoopGain = 2.6
+      ret.lateralTuning.indi.timeConstant = 1.0
+      ret.lateralTuning.indi.actuatorEffectiveness = 1.5
 
     # TODO: get actual value, for now starting with reasonable value for
     # civic and scaling by mass and wheelbase
