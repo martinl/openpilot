@@ -61,7 +61,7 @@ class TestStartup(unittest.TestCase):
     else:
       finger = _FINGERPRINTS[car][0]
 
-    for _ in range(500):
+    for _ in range(1000):
       msgs = [[addr, 0, b'\x00'*length, 0] for addr, length in finger.items()]
       pm.send('can', can_list_to_can_capnp(msgs))
 
