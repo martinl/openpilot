@@ -6,6 +6,7 @@ from opendbc.can.packer import CANPacker
 
 class CarController():
   def __init__(self, dbc_name, CP, VM):
+    self.params = CarControllerParams(CP)
     self.apply_steer_last = 0
     self.es_distance_cnt = -1
     self.es_accel_cnt = -1
@@ -20,23 +21,23 @@ class CarController():
     can_sends = []
 
     # *** steering ***
-    if (frame % CarControllerParams.STEER_STEP) == 0:
+    if (frame % self.params.STEER_STEP) == 0:
 
-      apply_steer = int(round(actuators.steer * CarControllerParams.STEER_MAX))
+      apply_steer = int(round(actuators.steer * self.params.STEER_MAX))
 
       # limits due to driver torque
 
       new_steer = int(round(apply_steer))
-      apply_steer = apply_std_steer_torque_limits(new_steer, self.apply_steer_last, CS.out.steeringTorque, CarControllerParams)
+      apply_steer = apply_std_steer_torque_limits(new_steer, self.apply_steer_last, CS.out.steeringTorque, self.params)
       self.steer_rate_limited = new_steer != apply_steer
 
-      if not enabled:
+      if not enabled or CS.out.steerWarning:
         apply_steer = 0
 
       if CS.CP.carFingerprint in PREGLOBAL_CARS:
-        can_sends.append(subarucan.create_preglobal_steering_control(self.packer, apply_steer, frame, CarControllerParams.STEER_STEP))
+        can_sends.append(subarucan.create_preglobal_steering_control(self.packer, apply_steer, frame, self.params.STEER_STEP))
       else:
-        can_sends.append(subarucan.create_steering_control(self.packer, apply_steer, frame, CarControllerParams.STEER_STEP))
+        can_sends.append(subarucan.create_steering_control(self.packer, apply_steer, frame, self.params.STEER_STEP))
 
       self.apply_steer_last = apply_steer
 
