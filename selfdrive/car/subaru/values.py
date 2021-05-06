@@ -190,9 +190,6 @@ FW_VERSIONS = {
     (Ecu.transmission, 0x7e1, None): [
       b'\xe6\xf5\004\000\000',
     ],
-    (Ecu.fwdRadar, 0x7D0, 'None'): [
-      b'\xf1\000\000\000\002',
-    ],
   },
   CAR.FORESTER_PREGLOBAL: {
     # 2018 Subaru Forester 2.5i Touring - UDM / @Oreo
