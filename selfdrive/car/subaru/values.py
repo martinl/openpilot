@@ -123,6 +123,7 @@ FW_VERSIONS = {
       b'z\x94\f\x90\001',
     ],
     (Ecu.eps, 0x746, None): [
+      b'z\xc0\004\000',
       b'\x7a\xc0\x0c\x00',
       b'z\xc0\b\x00',
       b'\x8a\xc0\x00\x00',
