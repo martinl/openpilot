@@ -16,7 +16,7 @@ from common.transformations.camera import eon_f_frame_size, eon_d_frame_size
 from selfdrive.car.fingerprints import FW_VERSIONS
 from selfdrive.manager.process import ensure_running
 from selfdrive.manager.process_config import managed_processes
-from selfdrive.test.update_ci_routes import upload_route
+#from selfdrive.test.update_ci_routes import upload_route
 from tools.lib.route import Route
 from tools.lib.framereader import FrameReader
 from tools.lib.logreader import LogReader
@@ -173,15 +173,15 @@ def regen_and_save(route, sidx, upload=False, use_route_meta=True):
     lr = LogReader(r.log_paths()[args.seg])
     fr = FrameReader(r.camera_paths()[args.seg])
   else:
-    lr = LogReader(f"cd:/{route.replace('|', '/')}/{sidx}/rlog.bz2")
-    fr = FrameReader(f"cd:/{route.replace('|', '/')}/{sidx}/fcamera.hevc")
+    lr = LogReader(f"{route.replace('|', '/')}/{sidx}/rlog.bz2")
+    fr = FrameReader(f"{route.replace('|', '/')}/{sidx}/fcamera.hevc")
   rpath = regen_segment(lr, {'roadCameraState': fr})
   relr = os.path.relpath(rpath)
 
   print("\n\n", "*"*30, "\n\n")
   print("New route:", relr, "\n")
-  if upload:
-    upload_route(relr)
+  #if upload:
+  #  upload_route(relr)
   return relr
 
 

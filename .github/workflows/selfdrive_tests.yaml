@@ -264,6 +264,19 @@ jobs:
       with:
         name: replay-ref-logs
         path: selfdrive/test/process_replay/*.bz2
+    - name: Run regen custom routes
+      run: |
+        ${{ env.RUN }} "rm -rf selfdrive/test/process_replay/*.bz2 && \
+                        scons -j$(nproc) && \
+                        FILEREADER_CACHE=1 CI=1 coverage run selfdrive/test/process_replay/regen_custom_routes.py"
+      if: always()
+    - name: Upload regen routes
+      uses: actions/upload-artifact@v2
+      if: always()
+      continue-on-error: true
+      with:
+        name: replay-regen-routes
+        path: selfdrive/test/process_replay/fakedata/*
 
   #model_replay:
   #  name: model replay
