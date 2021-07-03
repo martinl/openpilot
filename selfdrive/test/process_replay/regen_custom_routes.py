@@ -11,6 +11,8 @@ custom_segments = [
   ("SUBARU", "7393c1b180278950|2021-06-29--13-00-40--1"),      # SUBARU.OUTBACK
 ]
 
+new_segments = []
+
 def download_route(url, path, filename):
 
   r = requests.get(url)
