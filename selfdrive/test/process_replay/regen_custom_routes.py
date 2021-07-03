@@ -7,7 +7,7 @@ BASE_URL = "https://github.com/martinl/openpilot-ci/raw/master/"
 
 custom_segments = [
   ("SUBARU", "05bca04dfbdca165|2021-07-01--21-54-54--1"),      # SUBARU.IMPREZA
-  ("SUBARU2", "8bf7e79a3ce64055|2021-05-24--09-36-27--1"),      # SUBARU.IMPREZA_2020
+  ("SUBARU2", "8bf7e79a3ce64055|2021-05-24--09-36-27--2"),      # SUBARU.IMPREZA_2020
   ("SUBARU3", "7393c1b180278950|2021-06-29--13-00-40--1"),      # SUBARU.OUTBACK
 ]
 
@@ -39,8 +39,6 @@ for car_brand, segment in custom_segments:
   download_route(rlog_url, log_path, rlog_fn)
 
   relr = regen_and_save(route_name, segment_idx, upload=False, use_route_meta=False)
-  print("\n\n", "*"*30, "\n\n")
-  print("New route:", relr, "\n")
   relr = relr.replace('/', '|')
   new_segments.append(f'("{car_brand}", "{relr}"), ')
 
