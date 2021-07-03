@@ -251,32 +251,32 @@ jobs:
       with:
         name: process_replay_diff.txt
         path: selfdrive/test/process_replay/diff.txt
-    - name: Run update ref
-      run: |
-        ${{ env.RUN }} "rm -rf selfdrive/test/process_replay/*.bz2 && \
-                        scons -j$(nproc) && \
-                        FILEREADER_CACHE=1 CI=1 coverage run selfdrive/test/process_replay/update_refs.py --no-upload --artifact"
-      if: always()
-    - name: Upload replay logs
-      uses: actions/upload-artifact@v2
-      if: always()
-      continue-on-error: true
-      with:
-        name: replay-ref-logs
-        path: selfdrive/test/process_replay/*.bz2
-    - name: Run regen custom routes
-      run: |
-        ${{ env.RUN }} "rm -rf selfdrive/test/process_replay/*.bz2 && \
-                        scons -j$(nproc) && \
-                        FILEREADER_CACHE=1 CI=1 coverage run selfdrive/test/process_replay/regen_custom_routes.py"
-      if: always()
-    - name: Upload regen routes
-      uses: actions/upload-artifact@v2
-      if: always()
-      continue-on-error: true
-      with:
-        name: replay-regen-routes
-        path: selfdrive/test/process_replay/fakedata/*
+    #- name: Run update ref
+    #  run: |
+    #    ${{ env.RUN }} "rm -rf selfdrive/test/process_replay/*.bz2 && \
+    #                    scons -j$(nproc) && \
+    #                    FILEREADER_CACHE=1 CI=1 coverage run selfdrive/test/process_replay/update_refs.py --no-upload --artifact"
+    #  if: always()
+    #- name: Upload replay logs
+    #  uses: actions/upload-artifact@v2
+    #  if: always()
+    #  continue-on-error: true
+    #  with:
+    #    name: replay-ref-logs
+    #    path: selfdrive/test/process_replay/*.bz2
+    #- name: Run regen custom routes
+    #  run: |
+    #    ${{ env.RUN }} "rm -rf selfdrive/test/process_replay/*.bz2 && \
+    #                    scons -j$(nproc) && \
+    #                    FILEREADER_CACHE=1 CI=1 coverage run selfdrive/test/process_replay/regen_custom_routes.py"
+    #  if: always()
+    #- name: Upload regen routes
+    #  uses: actions/upload-artifact@v2
+    #  if: always()
+    #  continue-on-error: true
+    #  with:
+    #    name: replay-regen-routes
+    #    path: selfdrive/test/process_replay/fakedata/*
 
   #model_replay:
   #  name: model replay

@@ -1,0 +1,64 @@
+name: selfdrive_regen
+on:
+  push:
+    branches-ignore:
+      - 'testing-closet*'
+  pull_request:
+
+env:
+  BASE_IMAGE: openpilot-base
+  DOCKER_REGISTRY: ghcr.io/commaai
+
+  DOCKER_LOGIN: docker login ghcr.io -u adeebshihadeh -p ${{ secrets.CONTAINER_TOKEN }}
+  BUILD: |
+      docker pull $(grep -iohP '(?<=^from)\s+\S+' Dockerfile.openpilot_base) || true
+      docker pull $DOCKER_REGISTRY/$BASE_IMAGE:latest || true
+      docker build --cache-from $DOCKER_REGISTRY/$BASE_IMAGE:latest -t $DOCKER_REGISTRY/$BASE_IMAGE:latest -t $BASE_IMAGE:latest -f Dockerfile.openpilot_base .
+
+  RUN: docker run --shm-size 1G -v $PWD:/tmp/openpilot -w /tmp/openpilot -e PYTHONPATH=/tmp/openpilot -e GITHUB_ACTION -e GITHUB_REF -e GITHUB_HEAD_REF -e GITHUB_SHA -e GITHUB_REPOSITORY -e GITHUB_RUN_ID -v /tmp/scons_cache:/tmp/scons_cache -v /tmp/comma_download_cache:/tmp/comma_download_cache $BASE_IMAGE /bin/sh -c
+  UNIT_TEST: coverage run --append -m unittest discover
+
+jobs:
+   process_replay_regen:
+    name: process replay regen
+    runs-on: ubuntu-20.04
+    timeout-minutes: 50
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
+    - name: Cache dependencies
+      id: dependency-cache
+      uses: actions/cache@v2
+      with:
+        path: /tmp/comma_download_cache
+        key: ${{ hashFiles('.github/workflows/test.yaml', 'selfdrive/test/process_replay/test_processes.py') }}
+    - name: Build Docker image
+      run: eval "$BUILD"
+    - name: Run update ref
+      run: |
+        ${{ env.RUN }} "rm -rf selfdrive/test/process_replay/*.bz2 && \
+                        scons -j$(nproc) && \
+                        FILEREADER_CACHE=1 CI=1 coverage run selfdrive/test/process_replay/update_refs.py --no-upload --artifact"
+      if: always()
+    - name: Upload replay logs
+      uses: actions/upload-artifact@v2
+      if: always()
+      continue-on-error: true
+      with:
+        name: replay-ref-logs
+        path: selfdrive/test/process_replay/*.bz2
+    - name: Run regen custom routes
+      run: |
+        ${{ env.RUN }} "rm -rf selfdrive/test/process_replay/*.bz2 && \
+                        scons -j$(nproc) && \
+                        FILEREADER_CACHE=1 CI=1 coverage run selfdrive/test/process_replay/regen_custom_routes.py"
+      if: always()
+    - name: Upload regen routes
+      uses: actions/upload-artifact@v2
+      if: always()
+      continue-on-error: true
+      with:
+        name: replay-regen-routes
+        path: selfdrive/test/process_replay/**/rlog.bz2
+
