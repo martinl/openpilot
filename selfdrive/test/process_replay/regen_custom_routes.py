@@ -3,12 +3,11 @@ import os
 import requests
 from selfdrive.test.process_replay.regen import regen_and_save
 
-BASE_URL = "https://github.com/martinl/openpilot-ci/raw/master/"
+BASE_URL = "https://github.com/martinl/openpilot-ci/raw/master/routes/"
 
 custom_segments = [
   ("SUBARU", "05bca04dfbdca165|2021-07-01--21-54-54--1"),      # SUBARU.IMPREZA
-  ("SUBARU2", "8bf7e79a3ce64055|2021-05-24--09-36-27--2"),      # SUBARU.IMPREZA_2020
-  ("SUBARU3", "7393c1b180278950|2021-06-29--13-00-40--1"),      # SUBARU.OUTBACK
+  ("SUBARU2", "7393c1b180278950|2021-06-29--13-00-40--1"),      # SUBARU.OUTBACK
 ]
 
 new_segments = []
