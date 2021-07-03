@@ -36,12 +36,12 @@ segments = [
   ("HONDA", "process_replay|fakedata|2021-06-30--01-48-33--0"),
   ("HONDA2", "process_replay|fakedata|2021-06-30--01-52-56--0"),
   ("CHRYSLER", "process_replay|fakedata|2021-06-30--01-23-40--0"),
+  ("SUBARU", "process_replay|fakedata|2021-07-03--09-42-31--0"),
+  ("SUBARU2", "process_replay|fakedata|2021-07-03--09-43-39--0"),
+  ("SUBARU3", "process_replay|fakedata|2021-07-03--09-44-47--0"),
   ("GM", "process_replay|fakedata|2021-06-30--01-30-49--0"),
   ("NISSAN", "process_replay|fakedata|2021-06-30--01-34-20--0"),
   ("VOLKSWAGEN", "process_replay|fakedata|2021-06-30--01-37-52--0"),
-  ("SUBARU", "process_replay|fakedata|2021-07-03--08-45-30--0"),
-  ("SUBARU2", "process_replay|fakedata|2021-07-03--08-46-37--0"),
-  ("SUBARU3", "process_replay|fakedata|2021-07-03--08-47-46--0"),
 ]
 
 # dashcamOnly makes don't need to be tested until a full port is done

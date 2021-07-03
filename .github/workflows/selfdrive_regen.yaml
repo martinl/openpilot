@@ -60,5 +60,5 @@ jobs:
       continue-on-error: true
       with:
         name: replay-regen-routes
-        path: selfdrive/test/process_replay/**/rlog.bz2
+        path: selfdrive/test/process_replay/fakedata/
 
