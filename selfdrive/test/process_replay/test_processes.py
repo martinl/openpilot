@@ -17,7 +17,9 @@ original_segments = [
   ("HONDA", "eb140f119469d9ab|2021-06-12--10-46-24--27"),       # HONDA.CIVIC (NIDEC)
   ("HONDA2", "7d2244f34d1bbcda|2021-06-25--12-25-37--26"),      # HONDA.ACCORD (BOSCH)
   ("CHRYSLER", "4deb27de11bee626|2021-02-20--11-28-55--8"),   # CHRYSLER.PACIFICA
-  ("SUBARU", "05bca04dfbdca165|2021-07-01--21-54-54--1"),      # SUBARU.IMPREZA
+  ("SUBARU", "05bca04dfbdca165|2021-07-01--21-54-54--1"),       # SUBARU.IMPREZA
+  ("SUBARU2", "8bf7e79a3ce64055|2021-05-24--09-36-27--1"),      # SUBARU.IMPREZA_2020
+  ("SUBARU3", "7393c1b180278950|2021-06-29--13-00-40--1"),      # SUBARU.OUTBACK
   ("GM", "0c58b6a25109da2b|2021-02-23--16-35-50--11"),          # GM.VOLT
   ("NISSAN", "35336926920f3571|2021-02-12--18-38-48--46"),      # NISSAN.XTRAIL
   ("VOLKSWAGEN", "ef895f46af5fd73f|2021-05-22--14-06-35--6"),  # VW.AUDI_A3_MK3
@@ -34,10 +36,12 @@ segments = [
   ("HONDA", "process_replay|fakedata|2021-06-30--01-48-33--0"),
   ("HONDA2", "process_replay|fakedata|2021-06-30--01-52-56--0"),
   ("CHRYSLER", "process_replay|fakedata|2021-06-30--01-23-40--0"),
-  ("SUBARU", "process_replay|fakedata|2021-07-01--21-54-54--1"),
   ("GM", "process_replay|fakedata|2021-06-30--01-30-49--0"),
   ("NISSAN", "process_replay|fakedata|2021-06-30--01-34-20--0"),
   ("VOLKSWAGEN", "process_replay|fakedata|2021-06-30--01-37-52--0"),
+  ("SUBARU", "process_replay|fakedata|2021-07-03--08-45-30--0"),
+  ("SUBARU2", "process_replay|fakedata|2021-07-03--08-46-37--0"),
+  ("SUBARU3", "process_replay|fakedata|2021-07-03--08-47-46--0"),
 ]
 
 # dashcamOnly makes don't need to be tested until a full port is done
