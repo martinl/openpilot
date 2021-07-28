@@ -117,12 +117,13 @@ QWidget * Setup::network_setup() {
   blayout->addWidget(cont);
 
   // setup timer for testing internet connection
-  HttpRequest *request = new HttpRequest(this, DASHCAM_URL, false, 2500);
+  HttpRequest *request = new HttpRequest(this, false, 2500);
   QObject::connect(request, &HttpRequest::requestDone, [=](bool success) {
     cont->setEnabled(success);
     cont->setText(success ? "Continue" : "Waiting for internet");
     repaint();
   });
+  request->sendRequest(DASHCAM_URL);
   QTimer *timer = new QTimer(this);
   QObject::connect(timer, &QTimer::timeout, [=]() {
     if (!request->active() && cont->isVisible()) {
@@ -280,7 +281,7 @@ QWidget * Setup::download_failed() {
   restart->setProperty("primary", true);
   blayout->addWidget(restart);
   QObject::connect(restart, &QPushButton::clicked, this, [=]() {
-    setCurrentIndex(0);
+    setCurrentIndex(2);
   });
 
   widget->setStyleSheet(R"(

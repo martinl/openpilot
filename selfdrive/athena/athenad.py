@@ -29,7 +29,7 @@ from selfdrive.hardware import HARDWARE, PC, TICI
 from selfdrive.loggerd.config import ROOT
 from selfdrive.loggerd.xattr_cache import getxattr, setxattr
 from selfdrive.swaglog import cloudlog, SWAGLOG_DIR
-from selfdrive.version import get_version, get_git_remote, get_git_branch, get_git_commit
+from selfdrive.version import version, get_version, get_git_remote, get_git_branch, get_git_commit
 
 ATHENA_HOST = os.getenv('ATHENA_HOST', 'wss://athena.comma.ai')
 HANDLER_THREADS = int(os.getenv('HANDLER_THREADS', "4"))
@@ -210,10 +210,11 @@ def cancelUpload(upload_id):
 
 
 @dispatcher.add_method
-def primeActivated(active):
+def primeActivated(activated):
   dongle_id = Params().get("DongleId", encoding='utf-8')
   api = Api(dongle_id)
   manage_tokens(api)
+  return {"success": 1}
 
 
 def startLocalProxy(global_end_event, remote_ws_uri, local_port):
@@ -310,9 +311,8 @@ def get_logs_to_send_sorted():
     # assume send failed and we lost the response if sent more than one hour ago
     if not time_sent or curr_time - time_sent > 3600:
       logs.append(log_entry)
-  # return logs in order they should be sent
   # excluding most recent (active) log file
-  return sorted(logs[:-1])
+  return sorted(logs)[:-1]
 
 
 def log_handler(end_event):
@@ -331,7 +331,7 @@ def log_handler(end_event):
       # send one log
       curr_log = None
       if len(log_files) > 0:
-        log_entry = log_files.pop()
+        log_entry = log_files.pop() # newest log file
         cloudlog.debug(f"athena.log_handler.forward_request {log_entry}")
         try:
           curr_time = int(time.time())
@@ -493,6 +493,7 @@ def main():
                              enable_multithread=True,
                              timeout=30.0)
       cloudlog.event("athenad.main.connected_ws", ws_uri=ws_uri)
+      params.delete("PrimeRedirected")
 
       manage_tokens(api)
 
@@ -502,13 +503,22 @@ def main():
       break
     except (ConnectionError, TimeoutError, WebSocketException):
       conn_retries += 1
+      params.delete("PrimeRedirected")
       params.delete("LastAthenaPingTime")
-      if TICI:
-        cloudlog.exception("athenad.main.exception2")
+    except socket.timeout:
+      try:
+        r = requests.get("http://api.commadotai.com/v1/me", allow_redirects=False,
+                         headers={"User-Agent": f"openpilot-{version}"}, timeout=15.0)
+        if r.status_code == 302 and r.headers['Location'].startswith("http://u.web2go.com"):
+          params.put_bool("PrimeRedirected", True)
+      except Exception:
+        cloudlog.exception("athenad.socket_timeout.exception")
+      params.delete("LastAthenaPingTime")
     except Exception:
       cloudlog.exception("athenad.main.exception")
 
       conn_retries += 1
+      params.delete("PrimeRedirected")
       params.delete("LastAthenaPingTime")
 
     time.sleep(backoff(conn_retries))
