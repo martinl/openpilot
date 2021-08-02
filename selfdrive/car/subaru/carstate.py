@@ -372,8 +372,7 @@ class CarState(CarStateBase):
         ("Cruise_State", "ES_DashStatus", 0),
 
         ("Counter", "ES_LKAS_State", 0),
-        ("Keep_Hands_On_Wheel", "ES_LKAS_State", 0),
-        ("Empty_Box", "ES_LKAS_State", 0),
+        ("LKAS_Alert_Msg", "ES_LKAS_State", 0),
         ("Signal1", "ES_LKAS_State", 0),
         ("LKAS_ACTIVE", "ES_LKAS_State", 0),
         ("LKAS_Dash_State", "ES_LKAS_State", 0),
