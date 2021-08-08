@@ -63,6 +63,7 @@ FW_VERSIONS = {
   CAR.IMPREZA: {
     # 2018 Crosstrek - EDM / @martinl
     # 2018 Impreza - ADM / @Michael
+    # 2018 Impreza Limited - UDM / @isaacdchan
     # 2019 Impreza Premium - UDM / @hitoryu2001
     # 2018 Crosstrek Limited - UDM / @Joey
     # 2017 Impreza - UDM / @Frye
@@ -107,6 +108,7 @@ FW_VERSIONS = {
     ],
     (Ecu.engine, 0x7e0, None): [
       b'\xaa\x61\x66\x73\x07',
+      b'\xbe!at\a',
       b'\xbeacr\a',
       b'\xc5!`r\a',
       b'\xaa!ds\a',
@@ -121,6 +123,7 @@ FW_VERSIONS = {
       b'\xaa!au\a',
     ],
     (Ecu.transmission, 0x7e1, None): [
+      b'\xe4\xf5\002\000\000',
       b'\xe3\xe5\x46\x31\x00',
       b'\xe4\xe5\x061\x00',
       b'\xe5\xf5\x04\x00\x00',
