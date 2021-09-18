@@ -44,16 +44,19 @@ FW_VERSIONS = {
       b'\xa5 \x19\x02\x00',
       b'\xa5 !\002\000',
       b'\xf1\x82\xa5 \x19\x02\x00',
+      b'\xa5 \031\002\000', # 2020_TOURING
     ],
     (Ecu.eps, 0x746, None): [
       b'\x85\xc0\xd0\x00',
       b'\005\xc0\xd0\000',
       b'\x95\xc0\xd0\x00',
+      b'\x95\xc0\xd0\000', # 2020_TOURING
     ],
     (Ecu.fwdCamera, 0x787, None): [
       b'\x00\x00d\xb9\x1f@ \x10',
       b'\000\000e~\037@ \'',
       b'\x00\x00e@\x1f@ $',
+      b'\000\000e@\037@ $', # 2020_TOURING
     ],
     (Ecu.engine, 0x7e0, None): [
       b'\xbb,\xa0t\a',
@@ -61,13 +64,16 @@ FW_VERSIONS = {
       b'\xf1\x82\xbb,\xa0t\a',
       b'\xf1\x82\xd9,\xa0@\a',
       b'\xf1\x82\xd1,\xa0q\x07',
+      b'\xf1\x82\xd1,\xa0q\a', # 2020_TOURING
     ],
     (Ecu.transmission, 0x7e1, None): [
       b'\x00\xfe\xf7\x00\x00',
       b'\001\xfe\xf9\000\000',
       b'\x01\xfe\xf7\x00\x00',
+      b'\001\xfe\xf8\000\000', # 2020_TOURING
     ],
   },
+  
   CAR.IMPREZA: {
     # 2018 Crosstrek - EDM / @martinl
     # 2018 Impreza - ADM / @Michael
