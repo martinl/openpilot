@@ -40,17 +40,17 @@ FW_VERSIONS = {
     # Ecu, addr, subaddr: ROM ID
     (Ecu.esp, 0x7b0, None): [
       b'\xa5 \x19\x02\x00',
-      b'\xa5 !\002\000',
+      b'\xa5 !\x02\x00',
       b'\xf1\x82\xa5 \x19\x02\x00',
     ],
     (Ecu.eps, 0x746, None): [
       b'\x85\xc0\xd0\x00',
-      b'\005\xc0\xd0\000',
+      b'\x05\xc0\xd0\x00',
       b'\x95\xc0\xd0\x00',
     ],
     (Ecu.fwdCamera, 0x787, None): [
       b'\x00\x00d\xb9\x1f@ \x10',
-      b'\000\000e~\037@ \'',
+      b'\x00\x00e~\x37@ \'',
       b'\x00\x00e@\x1f@ $',
     ],
     (Ecu.engine, 0x7e0, None): [
@@ -62,7 +62,7 @@ FW_VERSIONS = {
     ],
     (Ecu.transmission, 0x7e1, None): [
       b'\x00\xfe\xf7\x00\x00',
-      b'\001\xfe\xf9\000\000',
+      b'\x01\xfe\xf9\x00\x00',
       b'\x01\xfe\xf7\x00\x00',
     ],
   },
@@ -87,69 +87,71 @@ FW_VERSIONS = {
     # 2018 Impreza Limited - UDM / @isaacdchan
     # 2017 Impreza 1.6 - UDM / @Moodkiller
     # 2019 Crosstrek - UDM / @AJInvesting
+    # 2017 Impreza - UDM / @prlifestyle93
     # Ecu, addr, subaddr: ROM ID
     (Ecu.esp, 0x7b0, None): [
-      b'\x7a\x94\x3f\x90\x00',
       b'\xa2 \x185\x00',
       b'\xa2 \x193\x00',
-      b'z\x94.\x90\x00',
-      b'z\x94\b\x90\x01',
       b'\xa2 \x19`\x00',
-      b'z\x94\f\x90\001',
-      b'z\x9c\x19\x80\x01',
+      b'\x7a\x94\x3f\x90\x00',
+      b'\x94.\x90\x00',
+      b'\x94\b\x90\x01',
+      b'\x94\f\x90\x01',
+      b'\x9c\x19\x80\x01',
     ],
     (Ecu.eps, 0x746, None): [
       b'\x7a\xc0\x0c\x00',
-      b'z\xc0\b\x00',
       b'\x8a\xc0\x00\x00',
-      b'z\xc0\x04\x00',
-      b'z\xc0\x00\x00',
       b'\x8a\xc0\x10\x00',
+      b'\xc0\b\x00',
+      b'\xc0\x00\x00',
+      b'\xc0\x04\x00',
     ],
     (Ecu.fwdCamera, 0x787, None): [
       b'\x00\x00d\xb5\x1f@ \x0e',
       b'\x00\x00d\xdc\x1f@ \x0e',
-      b'\x00\x00e\x1c\x1f@ \x14',
-      b'\x00\x00d)\x1f@ \a',
-      b'\x00\x00e+\x1f@ \x14',
-      b'\000\000e+\000\000\000\000',
-      b'\000\000dd\037@ \016',
-      b'\000\000e\002\037@ \024',
+      b'\x00\x00dd\x37@ \x16',
       b'\x00\x00d)\x00\x00\x00\x00',
+      b'\x00\x00d)\x1f@ \a',
+      b'\x00\x00e\x1c\x1f@ \x14',
+      b'\x00\x00e+\x00\x00\x00\x00',
+      b'\x00\x00e+\x1f@ \x14',
+      b'\x00\x00e\x02\x37@ \x24',
+      b'\xf1\x00\xac\x03\x00\',
     ],
     (Ecu.engine, 0x7e0, None): [
+      b'\xaa\x00Bu\x07',
       b'\xaa\x61\x66\x73\x07',
-      b'\xbeacr\a',
-      b'\xc5!`r\a',
+      b'\xaa!au\a',
       b'\xaa!ds\a',
       b'\xaa!`u\a',
       b'\xaa!dq\a',
       b'\xaa!dt\a',
-      b'\xf1\x00\xa2\x10\t'
-      b'\xc5!dr\a',
-      b'\xc5!ar\a',
+      b'\xbeacr\a',
       b'\xbe!as\a',
+      b'\xbe!at\a',
+      b'\xc5!ar\a',
+      b'\xc5!`r\a',
+      b'\xc5!dr\a',
+      b'\xc5!dr\x07',
       b'\xc5!ds\a',
       b'\xc5!`s\a',
-      b'\xaa!au\a',
-      b'\xbe!at\a',
-      b'\xaa\x00Bu\x07',
-      b'\xc5!dr\x07',
+      b'\xf1\x00\xa2\x10\t',
     ],
     (Ecu.transmission, 0x7e1, None): [
+      b'\xe3\xf5F\x00\x00',
+      b'\xe3\xd0\x081\x00',
       b'\xe3\xe5\x46\x31\x00',
-      b'\xe4\xe5\x061\x00',
-      b'\xe5\xf5\x04\x00\x00',
       b'\xe3\xf5G\x00\x00',
       b'\xe3\xf5\a\x00\x00',
       b'\xe3\xf5C\x00\x00',
-      b'\xf1\x00\xa4\x10@'
+      b'\xe4\xf5\x02\x00\x00',
+      b'\xe4\xe5\x061\x00',
+      b'\xe4\xf5\a\x00\x00',
+      b'\xe5\xf5\x04\x00\x00',
       b'\xe5\xf5B\x00\x00',
-      b'\xe5\xf5$\000\000',
-      b'\xe4\xf5\a\000\000',
-      b'\xe3\xf5F\000\000',
-      b'\xe4\xf5\002\000\000',
-      b'\xe3\xd0\x081\x00',
+      b'\xe5\xf5$\x00\x00',
+      b'\xf1\x00\xa4\x10@',
     ],
   },
   CAR.IMPREZA_2020: {
@@ -161,18 +163,18 @@ FW_VERSIONS = {
     # 2021 Crosstrek Premium - UDM / @pemerick07
     # Ecu, addr, subaddr: ROM ID
     (Ecu.esp, 0x7b0, None): [
-      b'\xa2 \0314\000',
-      b'\xa2 \0313\000',
-      b'\xa2 !i\000',
-      b'\xa2 !`\000',
+      b'\xa2 \x314\x00',
+      b'\xa2 \x313\x00',
+      b'\xa2 !i\x00',
+      b'\xa2 !`\x00',
     ],
     (Ecu.eps, 0x746, None): [
-      b'\x9a\xc0\000\000',
-      b'\n\xc0\004\000',
+      b'\x9a\xc0\x00\x00',
+      b'\n\xc0\x04\x00',
     ],
     (Ecu.fwdCamera, 0x787, None): [
-      b'\000\000eb\037@ \"',
-      b'\000\000e\x8f\037@ )',
+      b'\x00\x00eb\x37@ \"',
+      b'\x00\x00e\x8f\x37@ )',
     ],
     (Ecu.engine, 0x7e0, None): [
       b'\xca!ap\a',
@@ -182,10 +184,10 @@ FW_VERSIONS = {
       b'\xcc!fp\a',
     ],
     (Ecu.transmission, 0x7e1, None): [
-      b'\xe6\xf5\004\000\000',
-      b'\xe6\xf5$\000\000',
-      b'\xe7\xf6B0\000',
-      b'\xe7\xf5D0\000',
+      b'\xe6\xf5\x04\x00\x00',
+      b'\xe6\xf5$\x00\x00',
+      b'\xe7\xf6B0\x00',
+      b'\xe7\xf5D0\x00',
     ],
   },
   CAR.FORESTER: {
@@ -198,18 +200,18 @@ FW_VERSIONS = {
     # 2019 Forester - UDM / @Patienc3
     # Ecu, addr, subaddr: ROM ID
     (Ecu.esp, 0x7b0, None): [
-      b'\xa3 \030\024\000',
-      b'\xa3  \024\000',
-      b'\xa3 \031\024\000',
-      b'\xa3  \024\001',
+      b'\xa3 \x30\x24\x00',
+      b'\xa3  \x24\x00',
+      b'\xa3 \x31\x24\x00',
+      b'\xa3  \x24\x01',
     ],
     (Ecu.eps, 0x746, None): [
-      b'\x8d\xc0\004\000',
+      b'\x8d\xc0\x04\x00',
     ],
     (Ecu.fwdCamera, 0x787, None): [
-      b'\000\000e!\037@ \021',
-      b'\000\000e\x97\037@ 0',
-      b'\000\000e`\037@  ',
+      b'\x00\x00e!\x37@ \x21',
+      b'\x00\x00e\x97\x37@ 0',
+      b'\x00\x00e`\x37@  ',
       b'\xf1\x00\xac\x02\x00',
     ],
     (Ecu.engine, 0x7e0, None): [
@@ -220,10 +222,10 @@ FW_VERSIONS = {
       b'\xf1\x00\xa2\x10\n',
     ],
     (Ecu.transmission, 0x7e1, None): [
-      b'\032\xf6B0\000',
-      b'\032\xf6F`\000',
-      b'\032\xf6b`\000',
-      b'\032\xf6B`\000'
+      b'\x32\xf6B0\x00',
+      b'\x32\xf6F`\x00',
+      b'\x32\xf6b`\x00',
+      b'\x32\xf6B`\x00'
       b'\xf1\x00\xa4\x10@',
     ],
   },
@@ -258,7 +260,7 @@ FW_VERSIONS = {
       b'\xdc\xf2\x60\x60\x00',
       b'\xdc\xf2@`\x00',
       b'\xda\xfd\xe0\x80\x00',
-      b'\xdc\xf2`\x81\000',
+      b'\xdc\xf2`\x81\x00',
       b'\xdc\xf2`\x80\x00',
     ],
   },
@@ -272,7 +274,7 @@ FW_VERSIONS = {
       b'k\x97D\x00',
       b'[\xba\xc4\x03',
       b'{\x97D\x00',
-      b'[\x97D\000',
+      b'[\x97D\x00',
     ],
     (Ecu.eps, 0x746, None): [
       b'[\xb0\x00\x01',
@@ -294,7 +296,7 @@ FW_VERSIONS = {
       b'\xbe\xf2\x00p\x00',
       b'\xbf\xfb\xc0\x80\x00',
       b'\xbd\xf2\x00`\x00',
-      b'\xbf\xf2\000\x80\000',
+      b'\xbf\xf2\x00\x80\x00',
     ],
   },
   CAR.LEGACY_PREGLOBAL_2018: {
@@ -320,19 +322,19 @@ FW_VERSIONS = {
      # 2016 Subaru Levorg / @jpgnz
      # Ecu, addr, subaddr: ROM ID
      (Ecu.esp, 0x7b0, None): [
-       b'j\x9c\x92\002'
+       b'j\x9c\x92\x02'
      ],
      (Ecu.eps, 0x746, None): [
-       b'Z\xb0\000\000'
+       b'Z\xb0\x00\x00'
      ],
      (Ecu.fwdCamera, 0x787, None): [
-       b'\000\000c\xd3\000\000\000\000',
+       b'\x00\x00c\xd3\x00\x00\x00\x00',
      ],
      (Ecu.engine, 0x7e0, None): [
-       b'\xf1\x82\xa6\000\xa1t\a'
+       b'\xf1\x82\xa6\x00\xa1t\a'
      ],
      (Ecu.transmission, 0x7e1, None): [
-       b'\xcb\xd9\000p\000'
+       b'\xcb\xd9\x00p\x00'
      ],
   },
   CAR.OUTBACK_PREGLOBAL: {
@@ -355,9 +357,9 @@ FW_VERSIONS = {
       b'\x5b\xf7\xbc\x03',
       b'[\xf7\xac\x03',
       b'{\x97\xac\x00',
-      b'k\x9a\xac\000',
+      b'k\x9a\xac\x00',
       b'[\xba\xac\x03',
-      b'[\xf7\xac\000',
+      b'[\xf7\xac\x00',
     ],
     (Ecu.eps, 0x746, None): [
       b'k\xb0\x00\x00',
@@ -373,7 +375,7 @@ FW_VERSIONS = {
       b'\x00\x00c\x94\x00\x00\x00\x00',
       b'\x00\x00c\x94\x1f@\x10\b',
       b'\x00\x00c\xb7\x1f@\x10\x16',
-      b'\000\000c\x90\037@\020\016',
+      b'\x00\x00c\x90\x37@\x20\x16',
       b'\x00\x00c\xec\x37@\x04',
     ],
     (Ecu.engine, 0x7e0, None): [
@@ -397,8 +399,8 @@ FW_VERSIONS = {
       b'\xbf\xf2@\x80\x00',
       b'\xbe\xf2@p\x00',
       b'\xbd\xf2@`\x00',
-      b'\xbd\xf2@\x81\000',
-      b'\xbe\xfb\xe0p\000',
+      b'\xbd\xf2@\x81\x00',
+      b'\xbe\xfb\xe0p\x00',
       b'\xbf\xfb\xe0b\x00',
     ],
   },
@@ -421,7 +423,7 @@ FW_VERSIONS = {
       b'\x9b\x97\xac\x00',
       b'\x8b\x97\xbc\x00',
       b'\x8b\x99\xac\x00',
-      b'\x9b\x9a\xac\000',
+      b'\x9b\x9a\xac\x00',
       b'\x9b\x97\xbe\x10',
     ],
     (Ecu.eps, 0x746, None): [
@@ -454,7 +456,7 @@ FW_VERSIONS = {
       b'\xbc\xe2@\x80\x00',
       b'\xbc\xfb\xe0`\x00',
       b'\xbc\xaf\xe0`\x00',
-      b'\xbb\xfb\xe0`\000',
+      b'\xbb\xfb\xe0`\x00',
     ],
   },
   CAR.WRX_PREGLOBAL: {
