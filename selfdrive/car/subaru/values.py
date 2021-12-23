@@ -548,13 +548,13 @@ FW_VERSIONS = {
   },
 }
 FW_VERSIONS[CAR.CROSSTREK_2018] = {
-    (Ecu.esp, 0x7b0, None): FW_VERSIONS[CAR.IMPREZA][Ecu.esp],
+    (Ecu.esp, 0x7b0, None): FW_VERSIONS[CAR.IMPREZA][(Ecu.esp, 0x7b0, None)],
     (Ecu.eps, 0x746, None): [
       b'z\xc0\x04\x00',
     ],
-    (Ecu.fwdCamera, 0x787, None): FW_VERSIONS[CAR.IMPREZA][Ecu.fwdCamera],
-    (Ecu.engine, 0x7e0, None): FW_VERSIONS[CAR.IMPREZA][Ecu.engine],
-    (Ecu.transmission, 0x7e1, None): FW_VERSIONS[CAR.IMPREZA][Ecu.transmission],
+    (Ecu.fwdCamera, 0x787, None): FW_VERSIONS[CAR.IMPREZA][(Ecu.fwdCamera, 0x787, None)],
+    (Ecu.engine, 0x7e0, None): FW_VERSIONS[CAR.IMPREZA][(Ecu.engine, 0x7e0, None)],
+    (Ecu.transmission, 0x7e1, None): FW_VERSIONS[CAR.IMPREZA][(Ecu.transmission, 0x7e1, None)],
   }
 
 
