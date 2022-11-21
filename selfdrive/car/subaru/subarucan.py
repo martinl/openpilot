@@ -3,29 +3,23 @@ from cereal import car
 
 VisualAlert = car.CarControl.HUDControl.VisualAlert
 
-def create_steering_control(packer, apply_steer, frame, steer_step):
-
-  idx = (frame / steer_step) % 16
-
+def create_steering_control(packer, apply_steer):
   values = {
-    "Counter": idx,
     "LKAS_Output": apply_steer,
     "LKAS_Request": 1 if apply_steer != 0 else 0,
     "SET_1": 1
   }
-
   return packer.make_can_msg("ES_LKAS", 0, values)
 
-def create_steering_status(packer, apply_steer, frame, steer_step):
+def create_steering_status(packer):
   return packer.make_can_msg("ES_LKAS_State", 0, {})
 
-def create_es_distance(packer, es_distance_msg, pcm_cancel_cmd):
-
+def create_es_distance(packer, es_distance_msg, bus, pcm_cancel_cmd):
   values = copy.copy(es_distance_msg)
+  values["COUNTER"] = (values["COUNTER"] + 1) % 0x10
   if pcm_cancel_cmd:
     values["Cruise_Cancel"] = 1
-
-  return packer.make_can_msg("ES_Distance", 0, values)
+  return packer.make_can_msg("ES_Distance", bus, values)
 
 def create_es_lkas(packer, es_lkas_msg, enabled, visual_alert, left_line, right_line, left_lane_depart, right_lane_depart):
 
@@ -112,7 +106,7 @@ def create_preglobal_steering_control(packer, apply_steer, frame, steer_step):
   idx = (frame / steer_step) % 8
 
   values = {
-    "Counter": idx,
+    "COUNTER": idx,
     "LKAS_Command": apply_steer,
     "LKAS_Active": 1 if apply_steer != 0 else 0
   }

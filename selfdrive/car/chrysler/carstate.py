@@ -58,12 +58,12 @@ class CarState(CarStateBase):
     )
 
     # button presses
-    ret.leftBlinker = cp.vl["STEERING_LEVERS"]["TURN_SIGNALS"] == 1
-    ret.rightBlinker = cp.vl["STEERING_LEVERS"]["TURN_SIGNALS"] == 2
+    ret.leftBlinker, ret.rightBlinker = self.update_blinker_from_stalk(200, cp.vl["STEERING_LEVERS"]["TURN_SIGNALS"] == 1,
+                                                                       cp.vl["STEERING_LEVERS"]["TURN_SIGNALS"] == 2)
     ret.genericToggle = cp.vl["STEERING_LEVERS"]["HIGH_BEAM_PRESSED"] == 1
 
     # steering wheel
-    ret.steeringAngleDeg = cp.vl["STEERING"]["STEER_ANGLE"]
+    ret.steeringAngleDeg = cp.vl["STEERING"]["STEERING_ANGLE"] + cp.vl["STEERING"]["STEERING_ANGLE_HP"]
     ret.steeringRateDeg = cp.vl["STEERING"]["STEERING_RATE"]
     ret.steeringTorque = cp.vl["EPS_2"]["COLUMN_TORQUE"]
     ret.steeringTorqueEps = cp.vl["EPS_2"]["EPS_TORQUE_MOTOR"]
@@ -126,7 +126,8 @@ class CarState(CarStateBase):
       ("WHEEL_SPEED_RR", "ESP_6"),
       ("WHEEL_SPEED_RL", "ESP_6"),
       ("WHEEL_SPEED_FR", "ESP_6"),
-      ("STEER_ANGLE", "STEERING"),
+      ("STEERING_ANGLE", "STEERING"),
+      ("STEERING_ANGLE_HP", "STEERING"),
       ("STEERING_RATE", "STEERING"),
       ("TURN_SIGNALS", "STEERING_LEVERS"),
       ("HIGH_BEAM_PRESSED", "STEERING_LEVERS"),

@@ -82,9 +82,9 @@ void Route::addFileToSegment(int n, const QString &file) {
   const int pos = name.lastIndexOf("--");
   name = pos != -1 ? name.mid(pos + 2) : name;
 
-  if (name == "rlog.bz2") {
+  if (name == "rlog.bz2" || name == "rlog") {
     segments_[n].rlog = file;
-  } else if (name == "qlog.bz2") {
+  } else if (name == "qlog.bz2" || name == "qlog") {
     segments_[n].qlog = file;
   } else if (name == "fcamera.hevc") {
     segments_[n].road_cam = file;
@@ -99,7 +99,9 @@ void Route::addFileToSegment(int n, const QString &file) {
 
 // class Segment
 
-Segment::Segment(int n, const SegmentFile &files, uint32_t flags) : seg_num(n), flags(flags) {
+Segment::Segment(int n, const SegmentFile &files, uint32_t flags,
+                 const std::set<cereal::Event::Which> &allow)
+    : seg_num(n), flags(flags), allow(allow) {
   // [RoadCam, DriverCam, WideRoadCam, log]. fallback to qcamera/qlog
   const std::array file_list = {
       (flags & REPLAY_FLAG_QCAMERA) || files.road_cam.isEmpty() ? files.qcamera : files.road_cam,
@@ -130,7 +132,7 @@ void Segment::loadFile(int id, const std::string file) {
     success = frames[id]->load(file, flags & REPLAY_FLAG_NO_HW_DECODER, &abort_, local_cache, 20 * 1024 * 1024, 3);
   } else {
     log = std::make_unique<LogReader>();
-    success = log->load(file, &abort_, local_cache, 0, 3);
+    success = log->load(file, &abort_, allow, local_cache, 0, 3);
   }
 
   if (!success) {

@@ -32,9 +32,11 @@ a.out
 *.class
 *.pyxbldc
 *.vcd
+*.qm
 config.json
 clcache
 compile_commands.json
+compare_runtime*.html
 
 persist
 board/obj/
@@ -54,7 +56,6 @@ selfdrive/modeld/_dmonitoringmodeld
 /src/
 
 one
-/body/
 openpilot
 notebooks
 xx
@@ -83,3 +84,5 @@ selfdrive/modeld/models/*.thneed
 build/
 
 !**/.gitkeep
+
+poetry.toml

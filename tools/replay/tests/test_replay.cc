@@ -9,7 +9,6 @@
 #include "tools/replay/replay.h"
 #include "tools/replay/util.h"
 
-const QString DEMO_ROUTE = "4cf7a6ad03080c90|2021-09-29--13-46-36";
 const std::string TEST_RLOG_URL = "https://commadataci.blob.core.windows.net/openpilotci/0c94aa1e1296d7c6/2021-05-05--19-48-37/0/rlog.bz2";
 const std::string TEST_RLOG_CHECKSUM = "5b966d4bb21a100a8c4e59195faeb741b975ccbe268211765efd1763d892bfb3";
 
@@ -71,6 +70,7 @@ TEST_CASE("LogReader") {
     FileReader reader(true);
     std::string corrupt_content = reader.read(TEST_RLOG_URL);
     corrupt_content.resize(corrupt_content.length() / 2);
+    corrupt_content = decompressBZ2(corrupt_content);
     LogReader log;
     REQUIRE(log.load((std::byte *)corrupt_content.data(), corrupt_content.size()));
     REQUIRE(log.events.size() > 0);
@@ -197,8 +197,8 @@ void TestReplay::test_seek() {
   stream_thread_ = new QThread(this);
   QEventLoop loop;
   std::thread thread = std::thread([&]() {
-    for (int i = 0; i < 50; ++i) {
-      testSeekTo(random_int(0, 3 * 60));
+    for (int i = 0; i < 10; ++i) {
+      testSeekTo(random_int(0, 1 * 60));
     }
     loop.quit();
   });
@@ -207,8 +207,7 @@ void TestReplay::test_seek() {
 }
 
 TEST_CASE("Replay") {
-  auto flag = GENERATE(REPLAY_FLAG_NO_FILE_CACHE, REPLAY_FLAG_NONE);
-  TestReplay replay(DEMO_ROUTE, flag);
+  TestReplay replay(DEMO_ROUTE);
   REQUIRE(replay.load());
   replay.test_seek();
 }
