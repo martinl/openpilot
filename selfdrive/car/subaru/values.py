@@ -420,6 +420,7 @@ FW_VERSIONS = {
       b'\xba"@@\a',
       b'\xba)\xa0@\x07',
       b'\xa7"@q\x07',
+      b'\xa7"@0\x07',
     ],
     (Ecu.transmission, 0x7e1, None): [
       b'\xdc\xf2\x60\x60\x00',
@@ -430,6 +431,7 @@ FW_VERSIONS = {
       b'\x1a\xf6F`\x00',
       b'\xdc\xfd\xe0`\x00',
       b'\xda\xf2`\x80\x00',
+      b'\xda\xf2`p\x00',
     ],
   },
   CAR.LEGACY_PREGLOBAL: {
