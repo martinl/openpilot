@@ -1,8 +1,9 @@
 - Crosstrek Hybrid support
   - find a openpilot user who can provide route for testing (Dave32?)
   - find ES_Status CAN message equivalent (Cruise_Activated signal)
-  - find ES_Distance CAN message equivalent (Cruise disengage signal for brake and gas press)
+  - find ES_Distance CAN message equivalent (Cruise disengage, Car_Follow, Close_Distance)
   - more info: https://github.com/martinl/openpilot/issues/94
+  - more info: https://github.com/martinl/openpilot/issues/56
   - PR: https://github.com/commaai/openpilot/pull/25378
 - Subaru Ascent 2023 support
   - PR: https://github.com/commaai/openpilot/pull/27583
@@ -10,7 +11,10 @@
   - PR: https://github.com/commaai/openpilot/pull/26700
 - Global Gen1 Stop and Go autoresume
   - find diagnostic message for resume OR do AEB tests for current implementation
+  - find a method for detecting electronic parking brake (remove UI toggle)
   - PR: https://github.com/commaai/openpilot/pull/28064
 - Global Gen2 Stop and Go autoresume
 - Subaru Global Gen1 Experimental longitudinal control
   - PR: https://github.com/commaai/openpilot/pull/25345
+- Pre-Global Stop and Go autoresume
+  - find a way to autoresume for manual parking brake cars
