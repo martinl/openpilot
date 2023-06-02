@@ -1,0 +1,6 @@
+- Crosstrek Hybrid support
+    - find a openpilot user who can provide route for testing (Dave32?)
+    - find ES_Status CAN message equivalent (Cruise_Activated signal)
+    - find ES_Distance CAN message equivalent (Cruise disengage signal for brake and gas press)
+    - more info: https://github.com/martinl/openpilot/issues/94
+- 
