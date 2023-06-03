@@ -1,6 +1,11 @@
 ## General
 
-- Document process for adding new members with commit rights to subaru-community github repos
+- Requirements for new members to get commit rights to subaru-community github repos
+  - must finish a port of one sub 10 second car (Subaru preferred) and get the PR merged to upstream or subaru-community
+  - must find and fix at least 3 bugs in current panda safety and get PR-s merged upstream (any make or model)
+
+TODO
+
 - Create subaru-community release workflow
   - devel branch
   - release3 branch
