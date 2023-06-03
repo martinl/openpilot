@@ -2,12 +2,15 @@
 
 - Requirements for new members to get commit rights to subaru-community github repos
   - must finish a port of one sub 10 second car (Subaru preferred) and get the PR merged to upstream or subaru-community
-  - must find and fix at least 3 bugs in current panda safety and get PR-s merged upstream (any make or model)
+  - must fix at least 1 bug in upstream master branch panda safety and get PR merged (any make or model)
+  - must find at least one undocumented canbus signal and submit PR to opendbc upstream or subaru-community
 
 ## TODO
 
 ### Release management and CI
 
+- Fix and document updating reference replay routes procedure
+  - [Initial documentation](https://github.com/martinl/openpilot/wiki/openpilot-process-replay-logs-storage)
 - Test and document subaru-community release workflow
   - devel branch
   - release3 branch
@@ -17,6 +20,11 @@
 - Test and document subaru-community-c2 release workflow
   - devel branch
   - release2 branch
+- move repos to openpilot-subaru-community github org?
+- EU GDPR compliance
+  - add option to disable uploading all openpilot logs and videos to comma cloud storage
+  - add option to upload logs and videos to private cloud instances or on-prem storage services (S3/Google Drive/Azure/Nextcloud/etc)
+  - add option to post-process recorded videos offline to blur peoples faces and car license plates before uploading
 
 ### Adding support for new models and model years, fixing bugs and finding missing signals for WIP models
 
@@ -55,3 +63,4 @@
 More info in Openpilot Subaru community [wiki](https://github.com/commaai/openpilot/wiki/Subaru) page
 
 PS. Feel free to work on any of those whenever you have some free time and submit PR-s with relevant route
+PS2. Have fun but do not mess with panda safety, safety limits and make sure all CI tests pass before testing on road
