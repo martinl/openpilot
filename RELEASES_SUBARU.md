@@ -1,3 +1,8 @@
+2023-06-12
+==========
+* FPv2 updates
+  * Subaru Forester Wilderness 2023 / @FutureGhost
+
 2023-05-01
 ==========
 * FPv2 updates
