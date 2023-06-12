@@ -40,7 +40,7 @@ class CAR:
   CROSSTREK_2020H = "SUBARU CROSSTREK LIMITED 2020 HYBRID"
   FORESTER = "SUBARU FORESTER 2019"
   FORESTER_2020H = "SUBARU FORESTER 2020 HYBRID"
-  FORESTER_2022 = "SUBARU FORESTER 2022"
+  FORESTER_2022 = "SUBARU FORESTER 2022 - 2023"
   OUTBACK = "SUBARU OUTBACK 6TH GEN"
   LEGACY = "SUBARU LEGACY 7TH GEN"
 
@@ -77,7 +77,7 @@ CAR_INFO: Dict[str, Union[SubaruCarInfo, List[SubaruCarInfo]]] = {
   CAR.CROSSTREK_2020H: SubaruCarInfo("Subaru Crosstrek Hybrid 2020"),
   CAR.FORESTER: SubaruCarInfo("Subaru Forester 2019-21", "All"),
   CAR.FORESTER_2020H: SubaruCarInfo("Subaru Forester Hybrid 2020"),
-  CAR.FORESTER_2022: SubaruCarInfo("Subaru Forester 2022", harness=Harness.subaru_c),
+  CAR.FORESTER_2022: SubaruCarInfo("Subaru Forester 2022-23", harness=Harness.subaru_c),
   CAR.FORESTER_PREGLOBAL: SubaruCarInfo("Subaru Forester 2017-18"),
   CAR.LEGACY_PREGLOBAL: SubaruCarInfo("Subaru Legacy 2015-17"),
   CAR.LEGACY_PREGLOBAL_2018: SubaruCarInfo("Subaru Legacy 2018-19"),
@@ -377,10 +377,12 @@ FW_VERSIONS = {
     (Ecu.abs, 0x7b0, None): [
       b'\xa3 !x\x00',
       b'\xa3 !v\x00',
+      b'\xa3 "x\x00',
     ],
     (Ecu.eps, 0x746, None): [
       b'-\xc0%0',
       b'-\xc0\x040',
+      b'=\xc0%\x02',
     ],
     (Ecu.fwdCamera, 0x787, None): [
       b'\x04!\x01\x1eD\x07!\x00\x04,'
@@ -388,10 +390,12 @@ FW_VERSIONS = {
     (Ecu.engine, 0x7e0, None): [
       b'\xd5"a0\x07',
       b'\xd5"`0\x07',
+      b'\xf1"aq\x07',
     ],
     (Ecu.transmission, 0x7e1, None): [
       b'\x1d\x86B0\x00',
       b'\x1d\xf6B0\x00',
+      b'\x1e\x86B0\x00',
     ],
   },
   CAR.FORESTER_PREGLOBAL: {
