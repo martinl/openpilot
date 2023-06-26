@@ -46,9 +46,9 @@ class CarController:
         apply_steer = 0
 
       if self.CP.carFingerprint in PREGLOBAL_CARS:
-        can_sends.append(subarucan.create_preglobal_steering_control(self.packer, apply_steer, self.frame, self.p.STEER_STEP))
+        can_sends.append(subarucan.create_preglobal_steering_control(self.packer, apply_steer, self.frame, self.p.STEER_STEP, CC.latActive))
       elif self.CP.carFingerprint == CAR.FORESTER_2022:
-        can_sends.append(subarucan.create_preglobal_steering_control(self.packer, apply_steer, CC.latActive))
+        can_sends.append(subarucan.create_steering_control_2(self.packer, apply_steer, CC.latActive))
       else:
         can_sends.append(subarucan.create_steering_control(self.packer, apply_steer, CC.latActive))
 
