@@ -199,11 +199,10 @@ def subaru_preglobal_checksum(packer, values, addr):
   dat = packer.make_can_msg(addr, 0, values)[2]
   return (sum(dat[:7])) % 256
 
-def create_preglobal_steering_control(packer, apply_steer, frame, steer_step):
+def create_preglobal_steering_control(packer, apply_steer, frame, steer_step, steer_req):
 
   idx = (frame / steer_step) % 8
 
-def create_preglobal_steering_control(packer, apply_steer, steer_req):
   values = {
     "COUNTER": idx,
     "LKAS_Command": apply_steer,
