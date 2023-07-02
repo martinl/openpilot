@@ -311,7 +311,13 @@ else:
   elif arch != "Darwin":
     qt_libs += ["GL"]
 
-qt_env.Tool('qt3')
+qt_env['QT3DIR'] = qt_env['QTDIR']
+
+# compatibility for older SCons versions
+try:
+  qt_env.Tool('qt3')
+except SCons.Errors.UserError:
+  qt_env.Tool('qt')
 qt_env['CPPPATH'] += qt_dirs + ["#selfdrive/ui/qt/"]
 qt_flags = [
   "-D_REENTRANT",
