@@ -16,8 +16,12 @@ def create_steering_control(packer, apply_steer, frame, steer_step):
 
   return packer.make_can_msg("ES_LKAS", 0, values)
 
-def create_steering_control_2(packer, apply_steer):
+def create_steering_control_2(packer, apply_steer, frame, steer_step):
+
+  idx = (frame / steer_step) % 16
+
   values = {
+    "Counter": idx,
     "LKAS_Output": apply_steer,
     "LKAS_Request": 1 if apply_steer != 0 else 0,
     "SET_3": 3
