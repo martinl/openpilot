@@ -1,5 +1,6 @@
 import copy
 from cereal import car
+from selfdrive.car.subaru.values import CanBus
 
 VisualAlert = car.CarControl.HUDControl.VisualAlert
 
@@ -10,7 +11,7 @@ def create_steering_control(packer, apply_steer, steer_req):
     "LKAS_Request": steer_req,
     "SET_1": 1
   }
-  return packer.make_can_msg("ES_LKAS", 0, values)
+  return packer.make_can_msg("ES_LKAS", CanBus.main, values)
 
 def create_steering_control_2(packer, apply_steer, steer_req):
   values = {
@@ -18,10 +19,10 @@ def create_steering_control_2(packer, apply_steer, steer_req):
     "LKAS_Request": steer_req,
     "SET_3": 3
   }
-  return packer.make_can_msg("ES_LKAS_2", 0, values)
+  return packer.make_can_msg("ES_LKAS_2", CanBus.main, values)
 
 def create_steering_status(packer):
-  return packer.make_can_msg("ES_LKAS_State", 0, {})
+  return packer.make_can_msg("ES_LKAS_State", CanBus.main, {})
 
 
 def create_es_distance(packer, es_distance_msg, bus, pcm_cancel_cmd):
@@ -110,7 +111,7 @@ def create_es_lkas_state(packer, es_lkas_state_msg, enabled, visual_alert, left_
   values["LKAS_Left_Line_Visible"] = int(left_line)
   values["LKAS_Right_Line_Visible"] = int(right_line)
 
-  return packer.make_can_msg("ES_LKAS_State", 0, values)
+  return packer.make_can_msg("ES_LKAS_State", CanBus.main, values)
 
 
 def create_es_dashstatus(packer, dashstatus_msg):
@@ -148,7 +149,7 @@ def create_es_dashstatus(packer, dashstatus_msg):
   if values["LKAS_State_Msg"] in (2, 3):
     values["LKAS_State_Msg"] = 0
 
-  return packer.make_can_msg("ES_DashStatus", 0, values)
+  return packer.make_can_msg("ES_DashStatus", CanBus.main, values)
 
 def create_throttle(packer, throttle_msg, throttle_cmd):
 
@@ -156,7 +157,7 @@ def create_throttle(packer, throttle_msg, throttle_cmd):
   if throttle_cmd:
     values["Throttle_Pedal"] = 5
 
-  return packer.make_can_msg("Throttle", 2, values)
+  return packer.make_can_msg("Throttle", CanBus.camera, values)
 
 def create_brake_pedal(packer, brake_pedal_msg, speed_cmd, brake_cmd):
 
@@ -167,11 +168,11 @@ def create_brake_pedal(packer, brake_pedal_msg, speed_cmd, brake_cmd):
     values["Brake_Pedal"] = 5
     values["Brake_Lights"] = 1
 
-  return packer.make_can_msg("Brake_Pedal", 2, values)
+  return packer.make_can_msg("Brake_Pedal", CanBus.camera, values)
 
-def create_infotainmentstatus(packer, infotainmentstatus_msg, visual_alert):
+def create_es_infotainment(packer, es_infotainment_msg, visual_alert):
   # Filter stock LKAS disabled and Keep hands on steering wheel OFF alerts
-  values = {s: infotainmentstatus_msg[s] for s in [
+  values = {s: es_infotainment_msg[s] for s in [
     "CHECKSUM",
     "COUNTER",
     "LKAS_State_Infotainment",
@@ -190,7 +191,7 @@ def create_infotainmentstatus(packer, infotainmentstatus_msg, visual_alert):
   if visual_alert == VisualAlert.fcw:
     values["LKAS_State_Infotainment"] = 2
 
-  return packer.make_can_msg("INFOTAINMENT_STATUS", 0, values)
+  return packer.make_can_msg("ES_Infotainment", CanBus.main, values)
 
 
 # *** Subaru Pre-global ***
@@ -210,7 +211,7 @@ def create_preglobal_steering_control(packer, apply_steer, frame, steer_step, st
   }
   values["Checksum"] = subaru_preglobal_checksum(packer, values, "ES_LKAS")
 
-  return packer.make_can_msg("ES_LKAS", 0, values)
+  return packer.make_can_msg("ES_LKAS", CanBus.main, values)
 
 
 def create_preglobal_es_distance(packer, cruise_button, es_distance_msg):
@@ -237,7 +238,7 @@ def create_preglobal_es_distance(packer, cruise_button, es_distance_msg):
   values["Cruise_Button"] = cruise_button
   values["Checksum"] = subaru_preglobal_checksum(packer, values, "ES_Distance")
 
-  return packer.make_can_msg("ES_Distance", 0, values)
+  return packer.make_can_msg("ES_Distance", CanBus.main, values)
 
 def create_preglobal_throttle(packer, throttle_msg, throttle_cmd):
 
@@ -245,4 +246,4 @@ def create_preglobal_throttle(packer, throttle_msg, throttle_cmd):
   if throttle_cmd:
     values["Throttle_Pedal"] = 5
 
-  return packer.make_can_msg("Throttle", 2, values)
+  return packer.make_can_msg("Throttle", CanBus.camera, values)
