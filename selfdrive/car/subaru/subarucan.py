@@ -19,7 +19,7 @@ def create_steering_control_2(packer, apply_steer, steer_req):
     "LKAS_Request": steer_req,
     "SET_3": 3
   }
-  return packer.make_can_msg("ES_LKAS_2", CanBus.main, values)
+  return packer.make_can_msg("ES_LKAS_ALT", CanBus.main, values)
 
 def create_steering_status(packer):
   return packer.make_can_msg("ES_LKAS_State", CanBus.main, {})
