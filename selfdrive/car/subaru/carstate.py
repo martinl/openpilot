@@ -380,6 +380,13 @@ class CarState(CarStateBase):
         signals += CarState.get_common_global_es_signals()[0]
         checks += CarState.get_common_global_es_signals()[1]
 
+      if CP.carFingerprint == CAR.CROSSTREK_2020H:
+        signals += [
+          ("AEB_Status", "ES_Brake"),
+          ("Brake_Pressure", "ES_Brake"),
+        ]
+        checks.append(("ES_Brake", 20))
+
       if CP.flags & SubaruFlags.SEND_INFOTAINMENT:
         signals += [
           ("COUNTER", "ES_Infotainment"),
