@@ -49,8 +49,9 @@ class CarState(CarStateBase):
                                                                           cp.vl["Dashlights"]["RIGHT_BLINKER"])
 
     if self.CP.enableBsm:
-      ret.leftBlindspot = (cp.vl["BSD_RCTA"]["L_ADJACENT"] == 1) or (cp.vl["BSD_RCTA"]["L_APPROACHING"] == 1)
-      ret.rightBlindspot = (cp.vl["BSD_RCTA"]["R_ADJACENT"] == 1) or (cp.vl["BSD_RCTA"]["R_APPROACHING"] == 1)
+      cp_bsm = cp_body if self.car_fingerprint in (CAR.CROSSTREK_2022H) else cp
+      ret.leftBlindspot = (cp_bsm.vl["BSD_RCTA"]["L_ADJACENT"] == 1) or (cp_bsm.vl["BSD_RCTA"]["L_APPROACHING"] == 1)
+      ret.rightBlindspot = (cp_bsm.vl["BSD_RCTA"]["R_ADJACENT"] == 1) or (cp_bsm.vl["BSD_RCTA"]["R_APPROACHING"] == 1)
 
     cp_gear = cp_body if self.car_fingerprint in (CAR.CROSSTREK_2020H, CAR.CROSSTREK_2022H) else cp
     can_gear = int(cp_gear.vl["Transmission"]["Gear"])
@@ -206,7 +207,7 @@ class CarState(CarStateBase):
       ("Steering_Torque", 50),
     ]
 
-    if CP.enableBsm:
+    if CP.enableBsm and CP.carFingerprint != CAR.CROSSTREK_2022H:
       signals += [
         ("L_ADJACENT", "BSD_RCTA"),
         ("R_ADJACENT", "BSD_RCTA"),
@@ -420,6 +421,16 @@ class CarState(CarStateBase):
         ("Brake_Hybrid", 40),
         ("Transmission", 50),
       ]
+
+    if CP.carFingerprint in (CAR.CROSSTREK_2022H):
+      if CP.enableBsm:
+        signals += [
+          ("L_ADJACENT", "BSD_RCTA"),
+          ("R_ADJACENT", "BSD_RCTA"),
+          ("L_APPROACHING", "BSD_RCTA"),
+          ("R_APPROACHING", "BSD_RCTA"),
+        ]
+        checks.append(("BSD_RCTA", 17))
 
       return CANParser(DBC[CP.carFingerprint]['pt'], signals, checks, 1)
 

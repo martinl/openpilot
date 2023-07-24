@@ -30,8 +30,6 @@ class CarInterface(CarInterfaceBase):
         ret.safetyConfigs[0].safetyParam |= Panda.FLAG_SUBARU_GEN2
       elif candidate in (CAR.CROSSTREK_2020H, CAR.CROSSTREK_2022H):
         ret.safetyConfigs[0].safetyParam |= Panda.FLAG_SUBARU_CROSSTREK_HYBRID
-        # temp disable BSM until correct signals for 2022H are found
-        ret.enableBsm = False
       elif candidate == CAR.FORESTER_2020H:
         ret.safetyConfigs[0].safetyParam |= Panda.FLAG_SUBARU_FORESTER_HYBRID
       elif candidate == CAR.FORESTER_2022:
