@@ -48,6 +48,7 @@ class CAR:
   IMPREZA = "SUBARU IMPREZA LIMITED 2019"
   IMPREZA_2020 = "SUBARU IMPREZA SPORT 2020"
   CROSSTREK_2020H = "SUBARU CROSSTREK LIMITED 2020 HYBRID"
+  CROSSTREK_2022H = "SUBARU CROSSTREK LIMITED 2020 HYBRID"
   FORESTER = "SUBARU FORESTER 2019"
   FORESTER_2020H = "SUBARU FORESTER 2020 HYBRID"
   FORESTER_2022 = "SUBARU FORESTER 2022"
@@ -92,6 +93,7 @@ CAR_INFO: Dict[str, Union[SubaruCarInfo, List[SubaruCarInfo]]] = {
     SubaruCarInfo("Subaru XV 2020-21"),
   ],
   CAR.CROSSTREK_2020H: SubaruCarInfo("Subaru Crosstrek Hybrid 2020"),
+  CAR.CROSSTREK_2022H: SubaruCarInfo("Subaru Crosstrek Hybrid 2022"),
   CAR.FORESTER: SubaruCarInfo("Subaru Forester 2019-21", "All"),
   CAR.FORESTER_2020H: SubaruCarInfo("Subaru Forester Hybrid 2020"),
   CAR.FORESTER_2022: SubaruCarInfo("Subaru Forester 2022", car_parts=CarParts.common([CarHarness.subaru_c])),
@@ -331,6 +333,21 @@ FW_VERSIONS = {
       b'\xd7!`@\x07',
       b'\xd7!`p\a',
       b'\xe9\xf5B0\x00',
+      b'\xf4!`0\x07',
+    ],
+  },
+  CAR.CROSSTREK_2022H: {
+    # Ecu, addr, subaddr: ROM ID
+    (Ecu.abs, 0x7b0, None): [
+      b'\xa2 !e\x01',
+    ],
+    (Ecu.eps, 0x746, None): [
+      b'\n\xc2\x01\x00',
+    ],
+    (Ecu.fwdCamera, 0x787, None): [
+      b'\x00\x00el\x00\x00\x00\x00',
+    ],
+    (Ecu.engine, 0x7e0, None): [
       b'\xf4!`0\x07',
     ],
   },
@@ -730,6 +747,7 @@ DBC = {
   CAR.IMPREZA: dbc_dict('subaru_global_2017_generated', None),
   CAR.IMPREZA_2020: dbc_dict('subaru_global_2017_generated', None),
   CAR.CROSSTREK_2020H: dbc_dict('subaru_global_2020_hybrid_generated', None),
+  CAR.CROSSTREK_2022H: dbc_dict('subaru_global_2022_hybrid_generated', None),
   CAR.FORESTER: dbc_dict('subaru_global_2017_generated', None),
   CAR.FORESTER_2020H: dbc_dict('subaru_global_2017_generated', None),
   CAR.FORESTER_2022: dbc_dict('subaru_global_2022_generated', None),
