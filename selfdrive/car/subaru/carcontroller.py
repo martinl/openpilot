@@ -109,7 +109,7 @@ class CarController:
         self.sng_acc_resume = False
         self.sng_acc_resume_cnt = -1
 
-    if CS.CP.carFingerprint != CAR.CROSSTREK_2020H:
+    if CS.CP.carFingerprint not in (CAR.CROSSTREK_2020H, CAR.CROSSTREK_2022H):
       self.prev_close_distance = CS.close_distance
 
     # *** alerts and pcm cancel ***
@@ -137,7 +137,7 @@ class CarController:
         self.throttle_cnt = CS.throttle_msg["COUNTER"]
 
     else:
-      if CS.CP.carFingerprint != CAR.CROSSTREK_2020H:
+      if CS.CP.carFingerprint not in (CAR.CROSSTREK_2020H, CAR.CROSSTREK_2022H):
         if pcm_cancel_cmd and (self.frame - self.last_cancel_frame) > 0.2:
           bus = CanBus.alt if self.CP.carFingerprint in GLOBAL_GEN2 else CanBus.main
           can_sends.append(subarucan.create_es_distance(self.packer, CS.es_distance_msg, bus, pcm_cancel_cmd))
