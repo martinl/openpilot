@@ -3,7 +3,7 @@ from common.conversions import Conversions as CV
 from common.numpy_fast import interp
 from common.realtime import DT_CTRL
 from opendbc.can.packer import CANPacker
-from selfdrive.car import apply_std_steer_torque_limits
+from selfdrive.car import apply_driver_steer_torque_limits
 from selfdrive.car.gm import gmcan
 from selfdrive.car.gm.values import DBC, CanBus, CarControllerParams, CruiseButtons
 
@@ -30,7 +30,6 @@ class CarController:
     self.cancel_counter = 0
 
     self.lka_steering_cmd_counter = 0
-    self.sent_lka_steering_cmd = False
     self.lka_icon_status_last = (False, False)
 
     self.params = CarControllerParams(self.CP)
@@ -59,24 +58,22 @@ class CarController:
       # - until we're in sync with camera so counters align when relay closes, preventing a fault.
       #   openpilot can subtly drift, so this is activated throughout a drive to stay synced
       out_of_sync = self.lka_steering_cmd_counter % 4 != (CS.cam_lka_steering_cmd_counter + 1) % 4
-      if not self.sent_lka_steering_cmd or out_of_sync:
+      if CS.loopback_lka_steering_cmd_ts_nanos == 0 or out_of_sync:
         steer_step = self.params.STEER_STEP
 
-    if CS.loopback_lka_steering_cmd_updated:
-      self.lka_steering_cmd_counter += 1
-      self.sent_lka_steering_cmd = True
+    self.lka_steering_cmd_counter += 1 if CS.loopback_lka_steering_cmd_updated else 0
 
     # Avoid GM EPS faults when transmitting messages too close together: skip this transmit if we
     # received the ASCMLKASteeringCmd loopback confirmation too recently
     last_lka_steer_msg_ms = (now_nanos - CS.loopback_lka_steering_cmd_ts_nanos) * 1e-6
     if (self.frame - self.last_steer_frame) >= steer_step and last_lka_steer_msg_ms > MIN_STEER_MSG_INTERVAL_MS:
       # Initialize ASCMLKASteeringCmd counter using the camera until we get a msg on the bus
-      if not self.sent_lka_steering_cmd:
+      if CS.loopback_lka_steering_cmd_ts_nanos == 0:
         self.lka_steering_cmd_counter = CS.pt_lka_steering_cmd_counter + 1
 
       if CC.latActive:
         new_steer = int(round(actuators.steer * self.params.STEER_MAX))
-        apply_steer = apply_std_steer_torque_limits(new_steer, self.apply_steer_last, CS.out.steeringTorque, self.params)
+        apply_steer = apply_driver_steer_torque_limits(new_steer, self.apply_steer_last, CS.out.steeringTorque, self.params)
       else:
         apply_steer = 0
 
@@ -88,6 +85,7 @@ class CarController:
     if self.CP.openpilotLongitudinalControl:
       # Gas/regen, brakes, and UI commands - all at 25Hz
       if self.frame % 4 == 0:
+        stopping = actuators.longControlState == LongCtrlState.stopping
         if not CC.longActive:
           # ASCM sends max regen when not enabled
           self.apply_gas = self.params.INACTIVE_REGEN
@@ -95,6 +93,10 @@ class CarController:
         else:
           self.apply_gas = int(round(interp(actuators.accel, self.params.GAS_LOOKUP_BP, self.params.GAS_LOOKUP_V)))
           self.apply_brake = int(round(interp(actuators.accel, self.params.BRAKE_LOOKUP_BP, self.params.BRAKE_LOOKUP_V)))
+          # Don't allow any gas above inactive regen while stopping
+          # FIXME: brakes aren't applied immediately when enabling at a stop
+          if stopping:
+            self.apply_gas = self.params.INACTIVE_REGEN
 
         idx = (self.frame // 4) % 4
 
@@ -104,7 +106,7 @@ class CarController:
         # GM Camera exceptions
         # TODO: can we always check the longControlState?
         if self.CP.networkLocation == NetworkLocation.fwdCamera:
-          at_full_stop = at_full_stop and actuators.longControlState == LongCtrlState.stopping
+          at_full_stop = at_full_stop and stopping
           friction_brake_bus = CanBus.POWERTRAIN
 
         # GasRegenCmdActive needs to be 1 to avoid cruise faults. It describes the ACC state, not actuation

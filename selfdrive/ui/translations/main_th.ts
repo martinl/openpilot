@@ -117,6 +117,33 @@
     </message>
 </context>
 <context>
+    <name>DestinationWidget</name>
+    <message>
+        <source>Home</source>
+        <translation>บ้าน</translation>
+    </message>
+    <message>
+        <source>Work</source>
+        <translation>ที่ทำงาน</translation>
+    </message>
+    <message>
+        <source>No destination set</source>
+        <translation>ยังไม่ได้เลือกจุดหมาย</translation>
+    </message>
+    <message>
+        <source>home</source>
+        <translation>บ้าน</translation>
+    </message>
+    <message>
+        <source>work</source>
+        <translation>ที่ทำงาน</translation>
+    </message>
+    <message>
+        <source>No %1 location set</source>
+        <translation>ยังไม่ได้เลือกตำแหน่ง%1</translation>
+    </message>
+</context>
+<context>
     <name>DevicePanel</name>
     <message>
         <source>Dongle ID</source>
@@ -311,18 +338,6 @@
         <source>Installing...</source>
         <translation>กำลังติดตั้ง...</translation>
     </message>
-    <message>
-        <source>Receiving objects: </source>
-        <translation>กำลังรับข้อมูล: </translation>
-    </message>
-    <message>
-        <source>Resolving deltas: </source>
-        <translation>การแก้ไขเดลต้า: </translation>
-    </message>
-    <message>
-        <source>Updating files: </source>
-        <translation>กำลังอัปเดตไฟล์: </translation>
-    </message>
 </context>
 <context>
     <name>MapETA</name>
@@ -367,44 +382,14 @@
     </message>
 </context>
 <context>
-    <name>MapPanel</name>
+    <name>MapSettings</name>
     <message>
-        <source>Current Destination</source>
-        <translation>ปลายทางปัจจุบัน</translation>
+        <source>NAVIGATION</source>
+        <translation>การนำทาง</translation>
     </message>
     <message>
-        <source>CLEAR</source>
-        <translation>ล้างข้อมูล</translation>
-    </message>
-    <message>
-        <source>Recent Destinations</source>
-        <translation>ปลายทางล่าสุด</translation>
-    </message>
-    <message>
-        <source>Try the Navigation Beta</source>
-        <translation>ลองใช้ระบบนำทาง (เบต้า)</translation>
-    </message>
-    <message>
-        <source>Get turn-by-turn directions displayed and more with a comma
-prime subscription. Sign up now: https://connect.comma.ai</source>
-        <translation>รับการแสดงเส้นทางแบบเลี้ยวต่อเลี้ยว และอื่นๆ ด้วยการสมัครบริการ
-comma prime สมัครเลย: https://connect.comma.ai</translation>
-    </message>
-    <message>
-        <source>No home
-location set</source>
-        <translation>ยังไม่ได้กำหนด
-ตำแหน่งของบ้าน</translation>
-    </message>
-    <message>
-        <source>No work
-location set</source>
-        <translation>ยังไม่ได้กำหนด
-ตำแหน่งของที่ทำงาน</translation>
-    </message>
-    <message>
-        <source>no recent destinations</source>
-        <translation>ไม่พบปลายทางล่าสุด</translation>
+        <source>Manage at connect.comma.ai</source>
+        <translation>จัดการได้ที่ connect.comma.ai</translation>
     </message>
 </context>
 <context>
@@ -446,6 +431,63 @@ location set</source>
     <message>
         <source>Wrong password</source>
         <translation>รหัสผ่านผิด</translation>
+    </message>
+</context>
+<context>
+    <name>OffroadAlert</name>
+    <message>
+        <source>Device temperature too high. System cooling down before starting. Current internal component temperature: %1</source>
+        <translation>อุณหภูมิของอุปกรณ์สูงเกินไป ระบบกำลังทำความเย็นก่อนเริ่ม อุณหภูมิของชิ้นส่วนภายในปัจจุบัน: %1</translation>
+    </message>
+    <message>
+        <source>Immediately connect to the internet to check for updates. If you do not connect to the internet, openpilot won&apos;t engage in %1</source>
+        <translation>กรุณาเชื่อมต่ออินเตอร์เน็ตเพื่อตรวจสอบอัปเดทเดี๋ยวนี้ ถ้าคุณไม่เชื่อมต่ออินเตอร์เน็ต openpilot จะไม่ทำงานในอีก %1</translation>
+    </message>
+    <message>
+        <source>Connect to internet to check for updates. openpilot won&apos;t automatically start until it connects to internet to check for updates.</source>
+        <translation>กรุณาเชื่อมต่ออินเตอร์เน็ตเพื่อตรวจสอบอัปเดท openpilot จะไม่เริ่มทำงานอัตโนมัติจนกว่าจะได้เชื่อมต่อกับอินเตอร์เน็ตเพื่อตรวจสอบอัปเดท</translation>
+    </message>
+    <message>
+        <source>Unable to download updates
+%1</source>
+        <translation>ไม่สามารถดาวน์โหลดอัพเดทได้
+%1</translation>
+    </message>
+    <message>
+        <source>Invalid date and time settings, system won&apos;t start. Connect to internet to set time.</source>
+        <translation>วันที่และเวลาไม่ถูกต้อง ระบบจะไม่เริ่มทำงาน เชื่อต่ออินเตอร์เน็ตเพื่อตั้งเวลา</translation>
+    </message>
+    <message>
+        <source>Taking camera snapshots. System won&apos;t start until finished.</source>
+        <translation>กล้องกำลังถ่ายภาพ ระบบจะไม่เริ่มทำงานจนกว่าจะเสร็จ</translation>
+    </message>
+    <message>
+        <source>An update to your device&apos;s operating system is downloading in the background. You will be prompted to update when it&apos;s ready to install.</source>
+        <translation>กำลังดาวน์โหลดอัปเดทสำหรับระบบปฏิบัติการอยู่เบื้องหลัง คุณจะได้รับการแจ้งเตือนเมื่อระบบพร้อมสำหรับการติดตั้ง</translation>
+    </message>
+    <message>
+        <source>Device failed to register. It will not connect to or upload to comma.ai servers, and receives no support from comma.ai. If this is an official device, visit https://comma.ai/support.</source>
+        <translation>ไม่สามารถลงทะเบียนอุปกรณ์ได้ อุปกรณ์จะไม่สามารถเชื่อมต่อหรืออัปโหลดไปยังเซิร์ฟเวอร์ของ comma.ai ได้และจะไม่ได้รับการสนับสนุนจาก comma.ai ถ้านี่คืออุปกรณ์อย่างเป็นทางการ กรุณาติดต่อ https://comma.ai/support</translation>
+    </message>
+    <message>
+        <source>NVMe drive not mounted.</source>
+        <translation>ไม่ได้ติดตั้งไดร์ฟ NVMe</translation>
+    </message>
+    <message>
+        <source>Unsupported NVMe drive detected. Device may draw significantly more power and overheat due to the unsupported NVMe.</source>
+        <translation>ตรวจพบไดร์ฟ NVMe ที่ไม่รองรับ อุปกรณ์อาจใช้พลังงานมากขึ้นและร้อนเกินไปเนื่องจากไดร์ฟ NVMe ที่ไม่รองรับ</translation>
+    </message>
+    <message>
+        <source>openpilot was unable to identify your car. Your car is either unsupported or its ECUs are not recognized. Please submit a pull request to add the firmware versions to the proper vehicle. Need help? Join discord.comma.ai.</source>
+        <translation>openpilot ไม่สามารถระบุรถยนต์ของคุณได้ ระบบอาจไม่รองรับรถยนต์ของคุณหรือไม่รู้จัก ECU กรุณาส่ง pull request เพื่อเพิ่มรุ่นของเฟิร์มแวร์ให้กับรถยนต์ที่เหมาะสม หากต้องการความช่วยเหลือให้เข้าร่วม discord.comma.ai</translation>
+    </message>
+    <message>
+        <source>openpilot was unable to identify your car. Check integrity of cables and ensure all connections are secure, particularly that the comma power is fully inserted in the OBD-II port of the vehicle. Need help? Join discord.comma.ai.</source>
+        <translation>openpilot ไม่สามารถระบุรถยนต์ของคุณได้ กรุณาตรวจสอบสายเคเบิ้ลและจุดเชื่อมต่อทั้งหมดว่าแน่นหนา โดยเฉพาะ comma power ว่าได้ดันเข้าไปยังพอร์ต OBD II ของรถยนต์จนสุด หากต้องการความช่วยเหลือให้เข้าร่วม discord.comma.ai</translation>
+    </message>
+    <message>
+        <source>openpilot detected a change in the device&apos;s mounting position. Ensure the device is fully seated in the mount and the mount is firmly secured to the windshield.</source>
+        <translation>openpilot ตรวจพบการเปลี่ยนแปลงของตำแหน่งที่ติดตั้ง กรุณาตรวจสอบว่าได้เลื่อนอุปกรณ์เข้ากับจุดติดตั้งจนสุดแล้ว และจุดติดตั้งได้ยึดติดกับกระจกหน้าอย่างแน่นหนา</translation>
     </message>
 </context>
 <context>
@@ -530,14 +572,6 @@ location set</source>
         <source>comma prime</source>
         <translation>comma prime</translation>
     </message>
-    <message>
-        <source>CONNECT.COMMA.AI</source>
-        <translation>CONNECT.COMMA.AI</translation>
-    </message>
-    <message>
-        <source>COMMA POINTS</source>
-        <translation>คะแนน COMMA</translation>
-    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -587,16 +621,8 @@ location set</source>
         <translation>คุณแน่ใจหรือไม่ว่าต้องการรีเซ็ตอุปกรณ์?</translation>
     </message>
     <message>
-        <source>Resetting device...</source>
-        <translation>กำลังรีเซ็ตอุปกรณ์...</translation>
-    </message>
-    <message>
         <source>System Reset</source>
         <translation>รีเซ็ตระบบ</translation>
-    </message>
-    <message>
-        <source>System reset triggered. Press confirm to erase all content and settings. Press cancel to resume boot.</source>
-        <translation>มีการสั่งรีเซ็ตระบบ กดยืนยันเพื่อลบข้อมูลและการตั้งค่าทั้งหมด กดยกเลิกเพื่อบูตเข้าระบบตามปกติ</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -611,8 +637,18 @@ location set</source>
         <translation>ยืนยัน</translation>
     </message>
     <message>
-        <source>Unable to mount data partition. Press confirm to reset your device.</source>
-        <translation>ไม่สามารถเมานต์พาร์ติชั่นข้อมูล กดยืนยันเพื่อรีเซ็ตอุปกรณ์ของคุณ</translation>
+        <source>Resetting device...
+This may take up to a minute.</source>
+        <translation>กำลังรีเซ็ตอุปกรณ์...
+อาจใช้เวลาถึงหนึ่งนาที</translation>
+    </message>
+    <message>
+        <source>Press confirm to erase all content and settings. Press cancel to resume boot.</source>
+        <translation>กดยืนยันเพื่อลบข้อมูลและการตั้งค่าทั้งหมด กดยกเลิกเพื่อบูตต่อ</translation>
+    </message>
+    <message>
+        <source>Unable to mount data partition. Partition may be corrupted. Press confirm to erase and reset your device.</source>
+        <translation>ไม่สามารถเมานต์พาร์ติชั่นข้อมูลได้ พาร์ติชั่นอาจเสียหาย กดยืนยันเพื่อลบและรีเซ็ตอุปกรณ์ของคุณ</translation>
     </message>
 </context>
 <context>
@@ -636,10 +672,6 @@ location set</source>
     <message>
         <source>Software</source>
         <translation>ซอฟต์แวร์</translation>
-    </message>
-    <message>
-        <source>Navigation</source>
-        <translation>การนำทาง</translation>
     </message>
 </context>
 <context>
@@ -685,18 +717,6 @@ location set</source>
         <translation>กำลังรอสัญญาณอินเตอร์เน็ต</translation>
     </message>
     <message>
-        <source>Choose Software to Install</source>
-        <translation>เลือกซอฟต์แวร์ที่จะติดตั้ง</translation>
-    </message>
-    <message>
-        <source>Dashcam</source>
-        <translation>กล้องติดรถยนต์</translation>
-    </message>
-    <message>
-        <source>Custom Software</source>
-        <translation>ซอฟต์แวร์ที่กำหนดเอง</translation>
-    </message>
-    <message>
         <source>Enter URL</source>
         <translation>ป้อน URL</translation>
     </message>
@@ -723,6 +743,14 @@ location set</source>
     <message>
         <source>Start over</source>
         <translation>เริ่มต้นใหม่</translation>
+    </message>
+    <message>
+        <source>Something went wrong. Reboot the device.</source>
+        <translation>มีบางอย่างผิดพลาด รีบูตอุปกรณ์</translation>
+    </message>
+    <message>
+        <source>No custom software found at this URL.</source>
+        <translation>ไม่พบซอฟต์แวร์ที่กำหนดเองที่ URL นี้</translation>
     </message>
 </context>
 <context>
@@ -877,6 +905,26 @@ location set</source>
         <source>Uninstall</source>
         <translation>ถอนการติดตั้ง</translation>
     </message>
+    <message>
+        <source>failed to check for update</source>
+        <translation>ไม่สามารถตรวจสอบอัปเดตได้</translation>
+    </message>
+    <message>
+        <source>DOWNLOAD</source>
+        <translation>ดาวน์โหลด</translation>
+    </message>
+    <message>
+        <source>update available</source>
+        <translation>มีอัปเดตใหม่</translation>
+    </message>
+    <message>
+        <source>never</source>
+        <translation>ไม่เคย</translation>
+    </message>
+    <message>
+        <source>up to date, last checked %1</source>
+        <translation>ล่าสุดแล้ว ตรวจสอบครั้งสุดท้ายเมื่อ %1</translation>
+    </message>
 </context>
 <context>
     <name>SshControl</name>
@@ -1002,20 +1050,8 @@ location set</source>
         <translation>แสดงแผนที่ด้านซ้ายของหน้าจอเมื่ออยู่ในโหมดแบ่งหน้าจอ</translation>
     </message>
     <message>
-        <source>Experimental openpilot Longitudinal Control</source>
-        <translation>ทดลองใช้ระบบควบคุมการเร่ง/เบรคโดย openpilot</translation>
-    </message>
-    <message>
         <source>Experimental Mode</source>
         <translation>โหมดทดลอง</translation>
-    </message>
-    <message>
-        <source>WARNING: openpilot longitudinal control is experimental for this car and will disable Automatic Emergency Braking (AEB).</source>
-        <translation>คำเตือน: การควบคุมการเร่ง/เบรคโดย openpilot สำหรับรถคันนี้ยังอยู่ในขั้นพัฒนา และระบบเบรคฉุกเฉินอัตโนมัติ (AEB) จะถูกปิด</translation>
-    </message>
-    <message>
-        <source>On this car, openpilot defaults to the car&apos;s built-in ACC instead of openpilot&apos;s longitudinal control. Enable this to switch to openpilot longitudinal control. Enabling Experimental mode is recommended when using experimental openpilot longitudinal control.</source>
-        <translation>โดยปกติสำหรับรถคันนี้ openpilot จะควบคุมการเร่ง/เบรคด้วยระบบ ACC จากโรงงาน แทนการควยคุมโดย openpilot เปิดสวิตซ์นี้เพื่อให้ openpilot ควบคุมการเร่ง/เบรค แนะนำให้เปิดโหมดทดลองเมื่อต้องการให้ openpilot ควบคุมการเร่ง/เบรค ซึ่งอยู่ในขั้นพัฒนา</translation>
     </message>
     <message>
         <source>openpilot defaults to driving in &lt;b&gt;chill mode&lt;/b&gt;. Experimental mode enables &lt;b&gt;alpha-level features&lt;/b&gt; that aren&apos;t ready for chill mode. Experimental features are listed below:</source>
@@ -1046,12 +1082,44 @@ location set</source>
         <translation>ระบบควบคุมการเร่ง/เบรคโดย openpilot อาจมาในการอัปเดตในอนาคต</translation>
     </message>
     <message>
-        <source>An experimental version of openpilot longitudinal control can be tested, along with Experimental mode, on non-release branches.</source>
-        <translation>เวอร์ชันทดลองของระบบควบคุมการเร่ง/เบรคโดย openpilot สามารถทดสอบได้พร้อมกับโหมดการทดลอง บน branch ที่กำลังพัฒนา</translation>
-    </message>
-    <message>
         <source>Enable experimental longitudinal control to allow Experimental mode.</source>
         <translation>เปิดระบบควบคุมการเร่ง/เบรคขั้นพัฒนาโดย openpilot เพื่อเปิดใช้งานโหมดทดลอง</translation>
+    </message>
+    <message>
+        <source>openpilot Longitudinal Control (Alpha)</source>
+        <translation>ระบบควบคุมการเร่ง/เบรคโดย openpilot (Alpha)</translation>
+    </message>
+    <message>
+        <source>WARNING: openpilot longitudinal control is in alpha for this car and will disable Automatic Emergency Braking (AEB).</source>
+        <translation>คำเตือน: การควบคุมการเร่ง/เบรคโดย openpilot สำหรับรถคันนี้ยังอยู่ในสถานะ alpha และระบบเบรคฉุกเฉินอัตโนมัติ (AEB) จะถูกปิด</translation>
+    </message>
+    <message>
+        <source>On this car, openpilot defaults to the car&apos;s built-in ACC instead of openpilot&apos;s longitudinal control. Enable this to switch to openpilot longitudinal control. Enabling Experimental mode is recommended when enabling openpilot longitudinal control alpha.</source>
+        <translation>โดยปกติสำหรับรถคันนี้ openpilot จะควบคุมการเร่ง/เบรคด้วยระบบ ACC จากโรงงาน แทนการควยคุมโดย openpilot เปิดสวิตซ์นี้เพื่อให้ openpilot ควบคุมการเร่ง/เบรค แนะนำให้เปิดโหมดทดลองเมื่อต้องการให้ openpilot ควบคุมการเร่ง/เบรค ซึ่งอยู่ในสถานะ alpha</translation>
+    </message>
+    <message>
+        <source>Aggressive</source>
+        <translation>ดุดัน</translation>
+    </message>
+    <message>
+        <source>Standard</source>
+        <translation>มาตรฐาน</translation>
+    </message>
+    <message>
+        <source>Relaxed</source>
+        <translation>ผ่อนคลาย</translation>
+    </message>
+    <message>
+        <source>Driving Personality</source>
+        <translation>บุคลิกการขับขี่</translation>
+    </message>
+    <message>
+        <source>Standard is recommended. In aggressive mode, openpilot will follow lead cars closer and be more aggressive with the gas and brake. In relaxed mode openpilot will stay further away from lead cars.</source>
+        <translation>แนะนำให้ใช้แบบมาตรฐาน ในโหมดดุดัน openpilot จะตามรถคันหน้าใกล้ขึ้นและเร่งและเบรคแบบดุดันมากขึ้น ในโหมดผ่อนคลาย openpilot จะอยู่ห่างจากรถคันหน้ามากขึ้น</translation>
+    </message>
+    <message>
+        <source>An alpha version of openpilot longitudinal control can be tested, along with Experimental mode, on non-release branches.</source>
+        <translation>ระบบควบคุมการเร่ง/เบรคโดย openpilot เวอร์ชัน alpha สามารถทดสอบได้พร้อมกับโหมดการทดลอง บน branch ที่กำลังพัฒนา</translation>
     </message>
 </context>
 <context>
@@ -1087,6 +1155,29 @@ location set</source>
     <message>
         <source>Update failed</source>
         <translation>การอัปเดตล้มเหลว</translation>
+    </message>
+</context>
+<context>
+    <name>WiFiPromptWidget</name>
+    <message>
+        <source>Setup Wi-Fi</source>
+        <translation>ตั้งค่า Wi-Fi</translation>
+    </message>
+    <message>
+        <source>Connect to Wi-Fi to upload driving data and help improve openpilot</source>
+        <translation>เชื่อมต่อกับ Wi-Fi เพื่ออัปโหลดข้อมูลการขับขี่และช่วยปรับปรุง openpilot</translation>
+    </message>
+    <message>
+        <source>Open Settings</source>
+        <translation>เปิดการตั้งค่า</translation>
+    </message>
+    <message>
+        <source>Uploading training data</source>
+        <translation>กำลังอัปโหลดข้อมูลสำหรับการฝึก</translation>
+    </message>
+    <message>
+        <source>Your data is used to train driving models and help improve openpilot</source>
+        <translation>ข้อมูลของคุณถูกใช้เพื่อฝึกโมเดลการขับขี่และช่วยปรับปรุง openpilot</translation>
     </message>
 </context>
 <context>
