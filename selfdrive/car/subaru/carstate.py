@@ -99,6 +99,7 @@ class CarState(CarStateBase):
       cp_es_brake = cp_body if self.car_fingerprint in GLOBAL_GEN2 else cp_cam
       self.es_brake_msg = copy.copy(cp_es_brake.vl["ES_Brake"])
       cp_es_status = cp_body if self.car_fingerprint in GLOBAL_GEN2 else cp_cam
+      self.brake_status_msg = copy.copy(cp_brakes.vl["Brake_Status"])
 
       # TODO: Hybrid cars don't have ES_Distance, need a replacement
       if self.car_fingerprint not in HYBRID_CARS:
