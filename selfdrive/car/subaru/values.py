@@ -667,26 +667,32 @@ FW_VERSIONS = {
     ],
   },
   CAR.WRX_PREGLOBAL: {
+    # 2020 Subaru WRX / @jonyj
     # 2018 Subaru WRX / @cferra
     # 2016 Subaru WRX / @Hexinator
     # Ecu, addr, subaddr: ROM ID
     (Ecu.abs, 0x7b0, None): [
+      b'\x9a\x95R\x00',
       b'\x8a\x95R\x01',
       b'j\x95R\x02',
     ],
     (Ecu.eps, 0x746, None): [
       b'z\xb0\x00\x00',
       b'Z\xb0\x00\x00',
+      b'z\xb0\x00\x00',
     ],
     (Ecu.fwdCamera, 0x787, None): [
+      b'\xf1\x00\xac\x00\x00',
       b'\x00\x00d\xae\x1f@ \r',
       b'\x00\x00c\x93\x1f@\x10\r',
     ],
     (Ecu.engine, 0x7e0, None): [
+      b'\xcd)\xa0p\x07',
       b'\xf1\x82\xb2)\xa0P\x97',
       b'\xf1\x82\xa6)\xa0P\x07',
     ],
     (Ecu.transmission, 0x7e1, None): [
+      b'\xcf\xfd\xd0`\x00',
       b'\xcd\xfd\xd0\x80\x00',
       b'\xcb\xfd\xd0\x80\x00',
     ],
