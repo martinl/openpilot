@@ -325,6 +325,7 @@ FW_VERSIONS = {
     (Ecu.eps, 0x746, None): [
       b'\x9a\xc2\x01\x00',
       b'\n\xc2\x01\x00',
+      b'\n\xc2\x01\x01',
     ],
     (Ecu.fwdCamera, 0x787, None): [
       b'\x00\x00el\x1f@ #',
@@ -335,6 +336,7 @@ FW_VERSIONS = {
       b'\xd7!`p\a',
       b'\xe9\xf5B0\x00',
       b'\xf4!`0\x07',
+      b'\xf5!`0\x07',
     ],
   },
   CAR.FORESTER: {
