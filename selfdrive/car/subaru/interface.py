@@ -78,11 +78,15 @@ class CarInterface(CarInterfaceBase):
       ret.mass = 1568. + STD_CARGO_KG
       ret.wheelbase = 2.67
       ret.centerToFront = ret.wheelbase * 0.5
-      ret.steerRatio = 15           # 15 attempt for 2023H, 17 learned for 2020H, 14 stock
+      ret.steerRatio = 13           # 17 learned, 14 stock
       ret.lateralTuning.init('pid')
-      ret.lateralTuning.pid.kf = 0.00005
-      ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0., 14., 23.], [0., 14., 23.]]
-      ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.045, 0.042, 0.20], [0.04, 0.035, 0.045]]
+      # Lateral Tuning for Crosstrek 23
+      ret.lateralTuning.pid.kf = 0.00003
+      ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0., 10., 20., 30.], [0., 10., 20., 30.]]
+      ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.01, 0.05, 0.2, 0.21], [0.0010, 0.004, 0.008, 0.009]]
+      #ret.lateralTuning.pid.kf = 0.00005
+      #ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0., 14., 23.], [0., 14., 23.]]
+      #ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.045, 0.042, 0.20], [0.04, 0.035, 0.045]]
 
     elif candidate in (CAR.FORESTER, CAR.FORESTER_2020H, CAR.FORESTER_2022):
       ret.mass = 1568. + STD_CARGO_KG
