@@ -14,4 +14,6 @@ if [ -z "$PASSIVE" ]; then
   export PASSIVE="1"
 fi
 
+export FINGERPRINT="SUBARU OUTBACK 7TH GEN"
+
 export STAGING_ROOT="/data/safe_staging"
