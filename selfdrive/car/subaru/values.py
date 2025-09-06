@@ -79,7 +79,8 @@ class SubaruCarInfo(CarInfo):
 
 CAR_INFO: Dict[str, Union[SubaruCarInfo, List[SubaruCarInfo]]] = {
   CAR.ASCENT: SubaruCarInfo("Subaru Ascent 2019-21", "All"),
-  CAR.OUTBACK: SubaruCarInfo("Subaru Outback 2020-22", "All", car_parts=CarParts.common([CarHarness.subaru_b])),
+  # Updated years to reflect your 2024
+  CAR.OUTBACK: SubaruCarInfo("Subaru Outback 2020-24", "All", car_parts=CarParts.common([CarHarness.subaru_b])),
   CAR.LEGACY: SubaruCarInfo("Subaru Legacy 2020-22", "All", car_parts=CarParts.common([CarHarness.subaru_b])),
   CAR.IMPREZA: [
     SubaruCarInfo("Subaru Impreza 2017-19"),
@@ -102,6 +103,25 @@ CAR_INFO: Dict[str, Union[SubaruCarInfo, List[SubaruCarInfo]]] = {
   CAR.OUTBACK_PREGLOBAL: SubaruCarInfo("Subaru Outback 2015-17"),
   CAR.OUTBACK_PREGLOBAL_2018: SubaruCarInfo("Subaru Outback 2018-19"),
   CAR.WRX_PREGLOBAL: SubaruCarInfo("Subaru WRX 2016-18"),
+}
+
+# --- Added: CAN-based fingerprints for selection (address -> dlc) ---
+FINGERPRINTS: Dict[str, List[Dict[int, int]]] = {
+  CAR.OUTBACK: [{
+    0x002: 8, 0x040: 8, 0x041: 8, 0x044: 8, 0x048: 8, 0x049: 8, 0x04A: 8,
+    0x110: 8, 0x111: 8, 0x112: 8, 0x118: 8, 0x119: 8, 0x11A: 8, 0x11E: 8,
+    0x11F: 8, 0x121: 8, 0x122: 8, 0x124: 8, 0x138: 8, 0x139: 8, 0x13A: 8,
+    0x13B: 8, 0x13C: 8, 0x145: 8, 0x146: 8, 0x151: 8, 0x153: 8, 0x155: 8,
+    0x157: 8, 0x16A: 8, 0x174: 8, 0x220: 8, 0x221: 8, 0x222: 8, 0x228: 8,
+    0x22A: 8, 0x22B: 8, 0x22C: 8, 0x22D: 8, 0x23B: 8, 0x240: 8, 0x241: 8,
+    0x2D2: 8, 0x31E: 8, 0x31F: 8, 0x321: 8, 0x322: 8, 0x323: 8, 0x324: 8,
+    0x325: 8, 0x326: 8, 0x327: 8, 0x328: 8, 0x32B: 8, 0x330: 8, 0x33A: 8,
+    0x33B: 8, 0x342: 8, 0x345: 8, 0x346: 8, 0x347: 8, 0x34A: 8, 0x390: 8,
+    0x393: 8, 0x3A2: 8, 0x3AC: 8, 0x3AD: 8, 0x3C4: 8, 0x3C5: 8, 0x3C6: 8,
+    0x3C7: 8, 0x3D5: 8, 0x3FB: 8, 0x500: 8, 0x502: 8, 0x546: 8, 0x54F: 8,
+    0x551: 8, 0x651: 8, 0x660: 8, 0x672: 8, 0x68D: 8, 0x6B1: 8, 0x6BB: 8,
+    0x6BC: 8, 0x6CF: 8, 0x6DE: 8,
+  }],
 }
 
 SUBARU_VERSION_REQUEST = bytes([uds.SERVICE_TYPE.READ_DATA_BY_IDENTIFIER]) + \
