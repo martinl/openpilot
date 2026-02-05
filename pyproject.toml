@@ -33,7 +33,7 @@ onnx = ">=1.14.0"
 onnxruntime-gpu = { version = ">=1.15.1", platform = "linux", markers = "platform_machine == 'x86_64'" }
 pillow = "*"
 poetry = "==1.2.2"
-protobuf = "==3.20.3"
+protobuf = "==5.29.6"
 psutil = "*"
 pyaudio = "*"
 pycapnp = "*"
